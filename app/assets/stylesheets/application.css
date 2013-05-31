@@ -25,3 +25,6 @@
     display:none;
 }
 
+label.placeholder {
+  display: none;
+}

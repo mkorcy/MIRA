@@ -133,7 +133,7 @@ describe RecordsController do
       before do
         @routes = HydraEditor::Engine.routes
         @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
-        @audio.edit_users = [@user.email]
+        @audio.edit_users = [@user.user_key]
         @audio.save!
       end
       after do
@@ -150,7 +150,7 @@ describe RecordsController do
       describe "on an object with no existing versions of DCA-META" do
         before do
           @audio = TuftsAudio.new()
-          @audio.edit_users = [@user.email]
+          @audio.edit_users = [@user.user_key]
           @audio.save(validate: false)
         end
         it "should remove the record" do
@@ -160,8 +160,13 @@ describe RecordsController do
 
       describe "on an object with an existing version of DCA-META" do
         before do
+<<<<<<< HEAD
           @audio = TuftsAudio.new(title: "My title2", displays: ['dl'])
           @audio.edit_users = [@user.email]
+=======
+          @audio = TuftsAudio.new(title: "My title2")
+          @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
           @audio.save!
         end
         it "should not remove the record" do
@@ -207,8 +212,13 @@ describe RecordsController do
 
       describe "with an audio" do
         before do
+<<<<<<< HEAD
           @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
           @audio.edit_users = [@user.email]
+=======
+          @audio = TuftsAudio.new(title: 'My title2')
+          @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
           @audio.save!
         end
         after do
@@ -234,8 +244,13 @@ describe RecordsController do
 
       describe "with an image" do
         before do
+<<<<<<< HEAD
           @image = TuftsImage.new(title: "test image", displays: ['dl'])
           @image.edit_users = [@user.email]
+=======
+          @image = TuftsImage.new(title: "test image")
+          @image.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
           @image.save!
         end
         after do
@@ -255,8 +270,14 @@ describe RecordsController do
 
     describe "publish a record" do
       before do
+<<<<<<< HEAD
         @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
         @audio.edit_users = [@user.email]
+=======
+        @routes = Tufts::Application.routes 
+        @audio = TuftsAudio.new(title: 'My title2')
+        @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
         @audio.save!
       end
       after do
@@ -272,8 +293,13 @@ describe RecordsController do
 
     describe "destroying a record" do
       before do
+<<<<<<< HEAD
         @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
         @audio.edit_users = [@user.email]
+=======
+        @audio = TuftsAudio.new(title: 'My title2')
+        @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
         @audio.save!
       end
       it "should be successful with a pid" do
