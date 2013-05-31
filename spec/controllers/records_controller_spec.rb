@@ -164,8 +164,13 @@ describe RecordsController do
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           @audio = TuftsAudio.new(title: "My title2", displays: ['dl'])
           @audio.edit_users = [@user.email]
+=======
+          @audio = TuftsAudio.new(title: "My title2")
+          @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
           @audio = TuftsAudio.new(title: "My title2")
           @audio.edit_users = [@user.user_key]
@@ -231,8 +236,13 @@ describe RecordsController do
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
           @audio.edit_users = [@user.email]
+=======
+          @audio = TuftsAudio.new(title: 'My title2')
+          @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
           @audio = TuftsAudio.new(title: 'My title2')
           @audio.edit_users = [@user.user_key]
@@ -278,8 +288,13 @@ describe RecordsController do
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           @image = TuftsImage.new(title: "test image", displays: ['dl'])
           @image.edit_users = [@user.email]
+=======
+          @image = TuftsImage.new(title: "test image")
+          @image.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
           @image = TuftsImage.new(title: "test image")
           @image.edit_users = [@user.user_key]
@@ -325,6 +340,9 @@ describe RecordsController do
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> Migrate to ldap
+=======
 >>>>>>> Migrate to ldap
 =======
 >>>>>>> Migrate to ldap
@@ -351,8 +369,13 @@ describe RecordsController do
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
         @audio.edit_users = [@user.email]
+=======
+        @audio = TuftsAudio.new(title: 'My title2')
+        @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
         @audio = TuftsAudio.new(title: 'My title2')
         @audio.edit_users = [@user.user_key]
