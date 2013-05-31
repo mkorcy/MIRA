@@ -40,3 +40,4 @@ tags
 # ignore carrierwave uploads
 uploads
 
+config/ldap.yml
