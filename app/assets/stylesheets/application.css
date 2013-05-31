@@ -20,3 +20,7 @@
 .file {
     display:none;
 }
+
+label.placeholder {
+  display: none;
+}

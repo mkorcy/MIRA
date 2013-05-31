@@ -11,6 +11,7 @@ gem 'active-fedora', '6.4.0.rc1'
 gem 'hydra-editor', '0.0.3' 
 
 gem 'disable_assets_logger', :group => :development
+gem 'devise_ldap_authenticatable', git: 'https://github.com/cschiewek/devise_ldap_authenticatable'
 
 # Gems used only for assets and not required
 # in production environments by default.
