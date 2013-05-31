@@ -161,8 +161,13 @@ describe RecordsController do
       describe "on an object with an existing version of DCA-META" do
         before do
 <<<<<<< HEAD
+<<<<<<< HEAD
           @audio = TuftsAudio.new(title: "My title2", displays: ['dl'])
           @audio.edit_users = [@user.email]
+=======
+          @audio = TuftsAudio.new(title: "My title2")
+          @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
           @audio = TuftsAudio.new(title: "My title2")
           @audio.edit_users = [@user.user_key]
@@ -213,8 +218,13 @@ describe RecordsController do
       describe "with an audio" do
         before do
 <<<<<<< HEAD
+<<<<<<< HEAD
           @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
           @audio.edit_users = [@user.email]
+=======
+          @audio = TuftsAudio.new(title: 'My title2')
+          @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
           @audio = TuftsAudio.new(title: 'My title2')
           @audio.edit_users = [@user.user_key]
@@ -245,8 +255,13 @@ describe RecordsController do
       describe "with an image" do
         before do
 <<<<<<< HEAD
+<<<<<<< HEAD
           @image = TuftsImage.new(title: "test image", displays: ['dl'])
           @image.edit_users = [@user.email]
+=======
+          @image = TuftsImage.new(title: "test image")
+          @image.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
           @image = TuftsImage.new(title: "test image")
           @image.edit_users = [@user.user_key]
@@ -277,6 +292,9 @@ describe RecordsController do
         @routes = Tufts::Application.routes 
         @audio = TuftsAudio.new(title: 'My title2')
         @audio.edit_users = [@user.user_key]
+<<<<<<< HEAD
+>>>>>>> Migrate to ldap
+=======
 >>>>>>> Migrate to ldap
         @audio.save!
       end
@@ -294,8 +312,13 @@ describe RecordsController do
     describe "destroying a record" do
       before do
 <<<<<<< HEAD
+<<<<<<< HEAD
         @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
         @audio.edit_users = [@user.email]
+=======
+        @audio = TuftsAudio.new(title: 'My title2')
+        @audio.edit_users = [@user.user_key]
+>>>>>>> Migrate to ldap
 =======
         @audio = TuftsAudio.new(title: 'My title2')
         @audio.edit_users = [@user.user_key]
