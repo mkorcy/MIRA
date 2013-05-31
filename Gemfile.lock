@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/cschiewek/devise_ldap_authenticatable
+  revision: 3a5689d14e96596bb6c553ae629049970cf4e57b
+  specs:
+    devise_ldap_authenticatable (0.7.0)
+      devise (~> 2.0)
+      net-ldap (~> 0.3.1)
+
+GIT
   remote: https://github.com/projecthydra/om.git
   revision: 6e6459b04525fbeb2b2a0fc78fffacf37a77aef9
   ref: 6e6459b
@@ -166,6 +174,7 @@ GEM
     mini_portile (0.5.0)
     mono_logger (1.1.0)
     multi_json (1.7.7)
+    net-ldap (0.3.1)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nom-xml (0.5.1)
@@ -305,6 +314,7 @@ DEPENDENCIES
   chronic
   coffee-rails (~> 3.2.1)
   devise
+  devise_ldap_authenticatable!
   disable_assets_logger
   factory_girl_rails
   hydra-editor (= 0.0.3)

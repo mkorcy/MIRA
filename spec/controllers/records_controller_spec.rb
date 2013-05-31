@@ -64,7 +64,7 @@ describe RecordsController do
     describe "editing a record" do
       before do
         @audio = TuftsAudio.new(title: 'My title2')
-        @audio.edit_users = [@user.email]
+        @audio.edit_users = [@user.user_key]
         @audio.save!
       end
       after do
@@ -84,7 +84,7 @@ describe RecordsController do
       describe "on an object with no existing versions of DCA-META" do
         before do
           @audio = TuftsAudio.new()
-          @audio.edit_users = [@user.email]
+          @audio.edit_users = [@user.user_key]
           @audio.save(validate: false)
         end
         it "should remove the record" do
@@ -95,7 +95,7 @@ describe RecordsController do
       describe "on an object with an existing version of DCA-META" do
         before do
           @audio = TuftsAudio.new(title: "My title2")
-          @audio.edit_users = [@user.email]
+          @audio.edit_users = [@user.user_key]
           @audio.save!
         end
         it "should not remove the record" do
@@ -110,7 +110,7 @@ describe RecordsController do
       describe "with an audio" do
         before do
           @audio = TuftsAudio.new(title: 'My title2')
-          @audio.edit_users = [@user.email]
+          @audio.edit_users = [@user.user_key]
           @audio.save!
         end
         after do
@@ -133,7 +133,7 @@ describe RecordsController do
       describe "with an image" do
         before do
           @image = TuftsImage.new(title: "test image")
-          @image.edit_users = [@user.email]
+          @image.edit_users = [@user.user_key]
           @image.save!
         end
         after do
@@ -155,7 +155,7 @@ describe RecordsController do
       before do
         @routes = Tufts::Application.routes 
         @audio = TuftsAudio.new(title: 'My title2')
-        @audio.edit_users = [@user.email]
+        @audio.edit_users = [@user.user_key]
         @audio.save!
       end
       after do
@@ -172,7 +172,7 @@ describe RecordsController do
     describe "destroying a record" do
       before do
         @audio = TuftsAudio.new(title: 'My title2')
-        @audio.edit_users = [@user.email]
+        @audio.edit_users = [@user.user_key]
         @audio.save!
         @routes = Tufts::Application.routes 
       end
