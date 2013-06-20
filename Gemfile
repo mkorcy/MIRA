@@ -12,7 +12,7 @@ gem 'hydra-editor', '0.0.3'
 gem 'solrizer'
 
 gem 'disable_assets_logger', :group => :development
-gem 'devise_ldap_authenticatable', git: 'https://github.com/cschiewek/devise_ldap_authenticatable', ref: '3a5689d'
+gem 'devise_ldap_authenticatable', '0.7.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
