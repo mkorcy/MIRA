@@ -10,6 +10,7 @@ gem 'hydra-role-management', '0.0.2'
 gem 'active-fedora', '6.4.0.rc1'
 gem 'hydra-editor', '0.0.3' 
 gem 'solrizer'
+gem 'solrizer-fedora'
 
 gem 'disable_assets_logger', :group => :development
 
