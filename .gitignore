@@ -20,7 +20,17 @@
 # Ignore jetty data and config files
 jetty
 
-# Don't send system specific config files
+# Don't send local rvm config
+.rvmrc
+
+#swap files
+*/*.swp
+
+#utils
+utils/
+#public assets
+public/assets
+.sass-cache/
 config/initializers/secret_token.rb
 config/database.yml
 config/fedora.yml
