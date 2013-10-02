@@ -34,3 +34,4 @@ config/fedora.yml
 config/solr.yml
 config/redis.yml
 config/ldap.yml
+config/application.yml
