@@ -11,14 +11,14 @@ class TuftsImage < TuftsBase
 
   def to_solr(solr_doc=Hash.new, opts={})
     #prefilter perseus and art history objects
-    if ['perseus','aah'].any? { |word| pid.include?(word) }
-      return solr_doc
-    end
+#    if ['perseus','aah'].any? { |word| pid.include?(word) }
+#      return solr_doc
+#    end
 
     #also filter year book pages and election images
-    if ['tufts:UP150','tufts:MS115.001'].any? { |word| pid.starts_with?(word) }
-          return solr_doc
-    end
+#    if ['tufts:UP150','tufts:MS115.001'].any? { |word| pid.starts_with?(word) }
+#          return solr_doc
+#    end
 
     solr_doc = super
     index_sort_fields solr_doc
