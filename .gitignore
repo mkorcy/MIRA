@@ -40,3 +40,4 @@ tags
 uploads
 
 config/ldap.yml
+config/application.yml
