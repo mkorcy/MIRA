@@ -315,6 +315,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   settingslogic
+  solrizer
   sqlite3
   therubyracer
   titleize
