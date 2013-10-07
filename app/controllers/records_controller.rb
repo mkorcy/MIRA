@@ -27,6 +27,31 @@ class RecordsController < ApplicationController
     end
   end
 
+  def edit
+     @record = ActiveFedora::Base.find(params[:id], cast: true)
+     #if this object has the old style DCA-ADMIN datasteram, indicated by the old XML schema
+     if @record.datastreams['DCA-ADMIN'].ng_xml.to_s[/<dca_admin:admin/]
+       #create a new dca-admin stream
+       admin_stream = DcaAdmin.new
+       #check if this is a perseus object, an aah object or otherwise assume its a dl object
+       if @record.pid[/perseus/]
+         admin_stream.displays = 'perseus'
+       elsif @record.pid[/aah/]
+         admin_stream.displays = 'aah'
+       else
+         admin_stream.displays = 'dl'
+       end
+
+       #set the steward to dca since we know that to be true for all objects that predate the hydra admin head
+       admin_stream.steward = 'dca'
+       @record.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
+       @record.save
+
+     end
+     authorize! :edit, @record
+     initialize_fields
+  end
+
   def publish
     @record = ActiveFedora::Base.find(params[:id], cast: true)
     authorize! :publish, @record

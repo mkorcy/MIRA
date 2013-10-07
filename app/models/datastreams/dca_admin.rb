@@ -6,8 +6,8 @@ class DcaAdmin < ActiveFedora::OmDatastream
     t.name namespace_prefix: "ac", index_as: :stored_searchable
     t.comment namespace_prefix: "ac", index_as: :stored_searchable
     t.retentionPeriod index_as: :stored_searchable
-    t.displays index_as: :stored_sortable
-    t.embargo index_as: :stored_searchable
+    t.displays index_as: :stored_searchable
+    t.embargo index_as: :dateable
     t.status index_as: :stored_searchable
     t.startDate index_as: :stored_searchable
     t.expDate index_as: :stored_searchable
