@@ -35,3 +35,6 @@ config/solr.yml
 config/redis.yml
 config/ldap.yml
 config/application.yml
+
+#ignore idea files
+.idea/
