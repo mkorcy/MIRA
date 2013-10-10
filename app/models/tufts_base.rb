@@ -153,9 +153,15 @@ class TuftsBase < ActiveFedora::Base
 
 
   def to_solr(solr_doc=Hash.new, opts={})
+   if pid[/perseus/]
+	solr_doc = {id: pid,object_type_sim: "Perseus Images",title_tesim: title,active_fedora_model_ssi: "TuftsImage",has_model_ssim: "info:fedora/cm:Image.4DS"}
+	solrize_profile(solr_doc)
+   else
     solr_doc = super
     create_facets solr_doc
     index_sort_fields solr_doc
+   end
+
     solr_doc
   end
 
