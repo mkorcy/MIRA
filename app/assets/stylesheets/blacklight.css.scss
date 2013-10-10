@@ -4,8 +4,24 @@
 @import 'blacklight/blacklight';
 
 
+//.navbar .brand {
+//  background: none;
+//  width: 100%;
+//  text-indent: 0;
+//}
+
+
 .navbar .brand {
-  background: none;
-  width: 100%;
-  text-indent: 0;
+
+background: transparent url(/assets/mira.png) no-repeat top left;
+
+
+white-space: nowrap;
+
+padding-right: 0;
+margin-right: 20px;
+padding-left: 0;
+width:  216px;
+min-height: 30px;
+
 }
