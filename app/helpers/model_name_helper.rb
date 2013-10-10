@@ -15,6 +15,8 @@ module ModelNameHelper
 
     if model_name.starts_with? "info:fedora/cm:"
       mapped_model_name = case model_name
+      when "info:fedora/cm:Collection"
+        "info:fedora/afmodel:TuftsCollection"
       when "info:fedora/cm:Audio"
         "info:fedora/afmodel:TuftsAudio"
       when "info:fedora/cm:Audio.OralHistory"
