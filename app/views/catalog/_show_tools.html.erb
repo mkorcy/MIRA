@@ -10,6 +10,7 @@
 -%>
   <ul class="nav nav-list">
       <li class="nav-header"><%= t('blacklight.tools.title') %></li>
+   <% unless params[:id][/aah/] %>
       <% if can? :create,  ActiveFedora::Base %>
         <li>
          <%= link_to "Create a new object", hydra_editor.new_record_path()%>
@@ -45,5 +46,6 @@
       <li>
       <%= link_to "Purge", record_path(@document), method: :delete, confirm: "WARNING: this will permanently delete this object from all environments! Are you sure you want to proceed?"%>
       </li>
+   <% end %>
   </ul>
 
