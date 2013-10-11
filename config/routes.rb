@@ -1,4 +1,4 @@
-ALLOW_DOTS ||= /[a-zA-Z0-9-_.:]+/
+ALLOW_DOTS ||= /[a-zA-Z0-9\-_.:]+/
 
 Tufts::Application.routes.draw do
   root :to => "catalog#index"
