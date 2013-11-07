@@ -99,6 +99,8 @@ describe TuftsAudio do
       subject.should be_valid
       subject.displays = 'dark'
       subject.should be_valid
+      subject.displays = 'corpora'
+      subject.should be_valid
     end
   end
 

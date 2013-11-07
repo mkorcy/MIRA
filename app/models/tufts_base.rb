@@ -174,7 +174,7 @@ class TuftsBase < ActiveFedora::Base
 
   def displays_valid
     return unless displays.present?
-    unless displays.all? {|d| %w(dl tisch aah perseus elections dark).include? d }
+    unless displays.all? {|d| %w(dl tisch aah perseus corpora elections dark).include? d }
       errors.add(:displays, "must be in the list")
     end
   end
