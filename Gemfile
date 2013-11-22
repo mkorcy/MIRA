@@ -9,7 +9,7 @@ gem 'hydra-head'
 gem 'hydra-role-management', '0.0.2'
 #gem 'active-fedora', '6.4.0.rc1'
 gem "active-fedora", "~> 6.7.0"
-gem "hydra-editor", "~> 0.1.0"
+gem "hydra-editor", "0.1.0"
 gem 'solrizer'
 
 gem 'disable_assets_logger', :group => :development
