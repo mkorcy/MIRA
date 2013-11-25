@@ -1,9 +1,13 @@
-<h1>Repository Administration Options</h1>
 <nav>
   <ul>
-    <% if can? :create,  ActiveFedora::Base %>
+    <% if current_user.admin? %>
       <li><%= link_to "Create a new object", hydra_editor.new_record_path()%></li>
+      <li><%= link_to "Unpublished objects", unpublished_index_path()%></li>
+      <li><%= link_to "Manage self-deposit types", deposit_types_path %></li>
+      <li><%= link_to "Contribute a new Self-Deposit item", contributions_path %></li>
+    <% else %>
+        <%# Plain-old-users should never be able to reach this page, but just in case... %>
+        <li><%= link_to "Deposit a new document", contributions_path %></li>
     <% end %>
-    <li><%= link_to "List unpublished objects", unpublished_index_path()%></li>
   </ul>
 </nav>

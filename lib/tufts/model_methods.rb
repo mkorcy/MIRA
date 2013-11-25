@@ -7,7 +7,8 @@ require 'chronic'
 
 module Tufts
   module ModelMethods
-  include TuftsFileAssetsHelper
+    include Hydra::ModelMethods
+    include TuftsFileAssetsHelper
 
     def index_sort_fields(solr_doc)
       #CREATOR SORT
@@ -25,9 +26,17 @@ module Tufts
       index_format_info(solr_doc)
       index_pub_date(solr_doc)
       index_unstemmed_values(solr_doc)
+      index_deposit_method(solr_doc)
     end
 
   private
+
+  def index_deposit_method(solr_doc)
+    case createdby
+    when Contribution::SELFDEP
+      Solrizer.insert_field(solr_doc, 'deposit_method', 'self-deposit', :stored_sortable)
+    end
+  end
 
   def index_unstemmed_values(solr_doc)
     titleize_and_index_array(solr_doc, 'corpname', corpname, :unstemmed_searchable)  

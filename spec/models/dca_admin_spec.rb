@@ -17,10 +17,26 @@ describe DcaAdmin do
     time = DateTime.parse('2013-03-22T12:33:00Z')
     subject.edited_at = time
     subject.published_at = time
-    subject.to_solr.should == {"admin_0_edited_at_dtsi" => "2013-03-22T12:33:00Z",
-       "admin_0_published_at_dtsi" => "2013-03-22T12:33:00Z",
-       "admin_edited_at_dtsi" => "2013-03-22T12:33:00Z",
-       "admin_published_at_dtsi" => "2013-03-22T12:33:00Z",
+    subject.to_solr.should == {
        "edited_at_dtsi" =>'2013-03-22T12:33:00Z', 'published_at_dtsi' =>'2013-03-22T12:33:00Z'}
+  end
+
+  it "should have note" do
+    subject.note = 'self-deposit'
+    expect(subject.note).to eq ['self-deposit']
+    subject.note = 'admin-deposit'
+    expect(subject.note).to eq ['admin-deposit']
+  end
+
+  it "should have createdby" do
+    subject.createdby = Contribution::SELFDEP
+    expect(subject.createdby).to eq [Contribution::SELFDEP]
+    subject.createdby = 'admin-deposit'
+    expect(subject.createdby).to eq ['admin-deposit']
+  end
+
+  it "should have creatordept" do
+    subject.creatordept = 'Dept. of Biology'
+    expect(subject.creatordept).to eq ['Dept. of Biology']
   end
 end

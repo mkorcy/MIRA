@@ -19,6 +19,8 @@ jetty
 
 # Don't send local rvm config
 .rvmrc
+.ruby-version
+.ruby-gemset
 
 #swap files
 */*.swp
@@ -28,6 +30,8 @@ utils/
 #public assets
 public/assets
 .sass-cache/
+
+# Don't send system specific config files
 config/initializers/secret_token.rb
 config/database.yml
 config/fedora.yml
@@ -35,6 +39,7 @@ config/solr.yml
 config/redis.yml
 config/ldap.yml
 config/application.yml
+config/devise.yml
 
 #ignore idea files
 .idea/
@@ -42,3 +47,4 @@ config/application.yml
 # some fixture files i use locally that don't need to go into the repo
 spec/fixtures/local_object_store/data01/tufts/central/dca/UP022/
 spec/fixtures/local_object_store/data01/tufts/sas
+spec/fixtures/local_object_store
