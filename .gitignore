@@ -41,6 +41,7 @@ config/devise.yml
 # Ignore RubyMine config files
 .idea/
 
+<<<<<<< HEAD
 #
 spec/fixtures/local_object_store
 
@@ -52,3 +53,6 @@ uploads
 
 config/ldap.yml
 config/application.yml
+# some fixture files i use locally that don't need to go into the repo
+spec/fixtures/local_object_store/data01/tufts/central/dca/UP022/
+spec/fixtures/local_object_store/data01/tufts/sas
