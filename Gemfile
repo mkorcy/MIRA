@@ -42,6 +42,12 @@ group :development do
   gem 'jettywrapper'
 end
 
+group :tdldev,:production do
+  gem 'mysql2'
+  gem 'activerecord-mysql-adapter'
+end
+
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.99'
   gem 'capybara'
