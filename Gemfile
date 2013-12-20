@@ -1,34 +1,31 @@
 source 'https://rubygems.org'
 #ruby-gemset=mira
 ruby '2.0.0'
-gem 'rails', '3.2.13'
+
+gem 'rails', '4.0.1'
 
 gem 'sqlite3'
 
-gem 'hydra-head'
-gem 'hydra-role-management', '0.0.2'
-#gem 'active-fedora', '6.4.0.rc1'
-gem "active-fedora", "~> 6.7.0"
-gem "hydra-editor", "0.1.0"
+gem 'hydra', '6.1.0'
+gem 'hydra-role-management', '0.1.0'
+gem 'hydra-editor', '0.1.0'
+gem 'qa', '0.0.3'
+gem 'sanitize', '2.0.6'
+
 gem 'solrizer'
-
 gem 'disable_assets_logger', :group => :development
-gem 'devise_ldap_authenticatable', '0.7.0'
+gem 'devise_ldap_authenticatable', '0.8.1'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+gem 'sass-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem "bootstrap-sass"
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-rails'
-  gem "jquery-fileupload-rails"
-  gem "bootstrap-sass"
-end
+gem 'uglifier', '>= 1.3.0'
+gem 'jquery-rails'
+gem "jquery-fileupload-rails"
 
 gem "devise"
 gem 'bootstrap_forms'

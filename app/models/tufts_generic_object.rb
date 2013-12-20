@@ -1,8 +1,7 @@
 class TuftsGenericObject < TuftsBase
-  has_metadata :name => "GENERIC-CONTENT", :type => TuftsGenericMeta
-  #has_file_datastream 'Archival.pdf', control_group: 'E', original: true
-  #
-  delegate :item, :to => 'GENERIC-CONTENT'
+  has_metadata "GENERIC-CONTENT", type: TuftsGenericMeta
+
+  has_attributes :item, datastream: 'GENERIC-CONTENT', multiple: true
 
   def self.to_class_uri
     'info:fedora/cm:Object.Generic'
@@ -24,7 +23,7 @@ class TuftsGenericObject < TuftsBase
   #   obj.file_path('GENERIC-CONTENT')
   #   # => /local_object_store/data01/tufts/central/dca/MS054/generic
   def directory_for(name)
-    File.join(collection_id, 'generic')
+    File.join(collection_code, 'generic')
   end
 
   def item_attributes=(items)

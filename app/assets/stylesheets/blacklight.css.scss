@@ -3,30 +3,29 @@
 
 @import 'blacklight/blacklight';
 
-
-//.navbar .brand {
-//  background: none;
-//  width: 100%;
-//  text-indent: 0;
-//}
-
-
 .navbar .brand {
-
-background: transparent url(/assets/mira.png) no-repeat top left;
-
-
-white-space: nowrap;
-
-padding-right: 0;
-margin-right: 20px;
-padding-left: 0;
-width:  216px;
-min-height: 30px;
-
+  background: none;
+  width: 100%;
+  text-indent: 0;
+  padding-top: 0;
+  margin-left: 0;
+  margin-right: 10px;
 }
-h1 {
-  line-height: 24px;
-  font-size: 16px;
-  margin-bottom: 3px;
+
+#header-navbar-fixed-top .brand {
+  background: none;
+  width: 100%;
+}
+
+.nav-collapse {
+  padding-top: 5px;
+}
+
+#searchbar {
+  padding-top: 10px;
+
+  form {
+    width: 450px;
+    margin-left: 30px;
+  }
 }
