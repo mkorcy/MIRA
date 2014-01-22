@@ -164,7 +164,12 @@ class TuftsBase < ActiveFedora::Base
 	solr_doc = {id: pid,object_type_sim: "Perseus Images",title_tesim: title,active_fedora_model_ssi: "TuftsImage",has_model_ssim: "info:fedora/cm:Image.4DS"}
 	solrize_profile(solr_doc)
    else
-    solr_doc = super
+     begin
+       solr_doc = super
+     rescue
+       logger.error("ERROR while indexing #{pid} will attempt to recover but object may be incomplete in index")
+       solrize_profile(solr_doc)
+     end
     create_facets solr_doc
     index_sort_fields solr_doc
    end
