@@ -66,6 +66,42 @@ class RecordsController < ApplicationController
        @record.save
 
      end
+     #if this object has the newer style DCA-ADMIN datastream which is not compatible with what MIRA expects update it.
+     #<ac xmlns="http://www.fedora.info/definitions/"
+     #2.0.0p195 :073 > builder = Nokogiri::XML::Builder.new do |xml|
+     #2.0.0p195 :074 >     xml.admin("xmlns"=>"http://nils.lib.tufts.edu/dcaadmin/","xmlns:ac"=>"http://purl.org/dc/dcmitype/") {
+     #2.0.0p195 :075 >       xml.displays("dig")
+     #2.0.0p195 :076?>     xml.displays("dug")
+     #2.0.0p195 :077?>     }
+     #2.0.0p195 :078?>   end
+     # => #<Nokogiri::XML::Builder:0x007ff4f9105630 @doc=#<Nokogiri::XML::Document:0x3ffa7c88280c name="document" children=[#<Nokogiri::XML::Element:0x3ffa7c88262c name="admin" namespace=#<Nokogiri::XML::Namespace:0x3ffa7c8825a0 href="http://nils.lib.tufts.edu/dcaadmin/"> children=[#<Nokogiri::XML::Element:0x3ffa7c882334 name="displays" namespace=#<Nokogiri::XML::Namespace:0x3ffa7c8825a0 href="http://nils.lib.tufts.edu/dcaadmin/"> children=[#<Nokogiri::XML::Text:0x3ffa7c8774c0 "dig">]>, #<Nokogiri::XML::Element:0x3ffa7c882168 name="displays" namespace=#<Nokogiri::XML::Namespace:0x3ffa7c8825a0 href="http://nils.lib.tufts.edu/dcaadmin/"> children=[#<Nokogiri::XML::Text:0x3ffa7c876da4 "dug">]>]>]>, @parent=#<Nokogiri::XML::Document:0x3ffa7c88280c name="document" children=[#<Nokogiri::XML::Element:0x3ffa7c88262c name="admin" namespace=#<Nokogiri::XML::Namespace:0x3ffa7c8825a0 href="http://nils.lib.tufts.edu/dcaadmin/"> children=[#<Nokogiri::XML::Element:0x3ffa7c882334 name="displays" namespace=#<Nokogiri::XML::Namespace:0x3ffa7c8825a0 href="http://nils.lib.tufts.edu/dcaadmin/"> children=[#<Nokogiri::XML::Text:0x3ffa7c8774c0 "dig">]>, #<Nokogiri::XML::Element:0x3ffa7c882168 name="displays" namespace=#<Nokogiri::XML::Namespace:0x3ffa7c8825a0 href="http://nils.lib.tufts.edu/dcaadmin/"> children=[#<Nokogiri::XML::Text:0x3ffa7c876da4 "dug">]>]>]>, @context=nil, @arity=1, @ns=nil>
+     #2.0.0p195 :079 > admin_stream = DcaAdmin.from_xml(builder.doc)
+     # => #<DcaAdmin @pid="" @dsid="" @controlGroup="M" changed="true" @mimeType="text/xml" >
+     #2.0.0p195 :080 > admin_stream.to_xml
+     # => "<admin xmlns=\"http://nils.lib.tufts.edu/dcaadmin/\" xmlns:ac=\"http://purl.org/dc/dcmitype/\">\n  <displays>dig</displays>\n  <displays>dug</displays>\n</admin>"
+
+
+     if @record.datastreams['DCA-ADMIN'].ng_xml.to_s[/<dca_admin:admin/]
+
+       xml_doc = Nokogiri::XML(@record.datastreams['DCA-ADMIN'].ng_xml.to_s)
+       displays_array = xml_doc.xpath('//local:displays')
+       steward_array = xml_doc.xpath('//local:steward')
+       builder = Nokogiri::XML::Builder.new do |xml|
+         xml.admin("xmlns"=>"http://nils.lib.tufts.edu/dcaadmin/","xmlns:ac"=>"http://purl.org/dc/dcmitype/") {
+           displays_array.each {|item|
+             xml.displays(item)
+            }
+           steward_array.each {|item|
+             xml.displays(item)
+           }
+         }
+       end
+
+       admin_stream = DcaAdmin.from_xml(builder.doc)
+
+       @record.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
+       @record.save
+     end
      authorize! :edit, @record
      initialize_fields
   end
