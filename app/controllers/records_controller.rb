@@ -80,25 +80,23 @@ class RecordsController < ApplicationController
      #2.0.0p195 :080 > admin_stream.to_xml
      # => "<admin xmlns=\"http://nils.lib.tufts.edu/dcaadmin/\" xmlns:ac=\"http://purl.org/dc/dcmitype/\">\n  <displays>dig</displays>\n  <displays>dug</displays>\n</admin>"
 
-
-     if @record.datastreams['DCA-ADMIN'].ng_xml.to_s[/<dca_admin:admin/]
-
+     if @record.datastreams['DCA-ADMIN'].ng_xml.to_s[/<ac xmlns="http:\/\/www.fedora/]
+       logger.error("badly formed dca-admin datastream, will update")
        xml_doc = Nokogiri::XML(@record.datastreams['DCA-ADMIN'].ng_xml.to_s)
        displays_array = xml_doc.xpath('//local:displays')
        steward_array = xml_doc.xpath('//local:steward')
        builder = Nokogiri::XML::Builder.new do |xml|
          xml.admin("xmlns"=>"http://nils.lib.tufts.edu/dcaadmin/","xmlns:ac"=>"http://purl.org/dc/dcmitype/") {
            displays_array.each {|item|
-             xml.displays(item)
+             xml.displays(item.text)
             }
            steward_array.each {|item|
-             xml.displays(item)
+             xml.steward(item.text)
            }
          }
        end
 
        admin_stream = DcaAdmin.from_xml(builder.doc)
-
        @record.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
        @record.save
      end
