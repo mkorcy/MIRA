@@ -103,6 +103,7 @@ class RecordsController < ApplicationController
      authorize! :edit, @record
      initialize_fields
   end
+end
 
   def publish
     authorize! :publish, @record
