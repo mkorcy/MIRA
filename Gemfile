@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 #ruby-gemset=mira
-ruby '2.0.0'
 
-gem 'rails', '4.0.1'
-
+gem 'rails', '4.0.5'
 gem 'sqlite3'
 
-gem 'hydra', '6.1.0'
+gem 'hydra', '6.2.0'
 gem 'hydra-role-management', '0.1.0'
 gem 'hydra-editor', '0.1.0'
+gem 'hydra-batch-edit', '1.1.1'
 gem 'qa', '0.0.3'
 gem 'sanitize', '2.0.6'
 
@@ -30,7 +29,10 @@ gem "jquery-fileupload-rails"
 gem "devise"
 gem 'bootstrap_forms'
 gem 'rmagick', '2.13.2', require: 'RMagick'
-gem 'resque'
+gem 'resque-status'
+gem 'carrierwave', '~> 0.10.0'
+
+gem 'blacklight_advanced_search', '~> 2.2'
 
 group :development do
   gem 'unicorn'
@@ -48,6 +50,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails'
+  gem 'byebug', require: false
 end
 
 gem 'chronic' # for lib/tufts/model_methods.rb

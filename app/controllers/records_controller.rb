@@ -1,7 +1,8 @@
 class RecordsController < ApplicationController
   include RecordsControllerBehavior
 
-  before_filter :load_object, only: [:publish, :destroy, :cancel]
+  before_filter :load_object, only: [:review, :publish, :destroy, :cancel]
+  authorize_resource only: [:review]
 
   def new
     authorize! :create, ActiveFedora::Base
@@ -19,7 +20,7 @@ class RecordsController < ApplicationController
       else
         @record = params[:type].constantize.new(args)
         @record.save(validate: false)
-        redirect_to record_attachments_path(@record)
+        redirect_to next_page
       end
     else
       flash[:error] = "You have specified an invalid pid. A valid pid must contain a colon (i.e. tufts:1231)"
@@ -86,11 +87,24 @@ class RecordsController < ApplicationController
      initialize_fields
   end
 
+  def review
+    if @record.respond_to?(:reviewed)
+      @record.reviewed
+      if @record.save
+        flash[:notice] = "\"#{@record.title}\" has been marked as reviewed."
+      else
+        flash[:error] = "Unable to mark \"#{@record.title}\" as reviewed."
+      end
+
+    else
+      flash[:error] = "Unable to mark \"#{@record.title}\" as reviewed."
+    end
+    redirect_to catalog_path(@record)
+  end
+
   def publish
-    @record = ActiveFedora::Base.find(params[:id], cast: true)
     authorize! :publish, @record
-    @record.audit(current_user, 'pushed to production')
-    @record.push_to_production!
+    @record.publish!(current_user.id)
     redirect_to catalog_path(@record), notice: "\"#{@record.title}\" has been pushed to production"
   end
 
@@ -101,8 +115,13 @@ class RecordsController < ApplicationController
     # only push to production if it's already on production.
     @record.audit(current_user, 'deleted')
     @record.push_to_production! if @record.published_at
-    flash[:notice] = "\"#{@record.title}\" has been purged"
-    redirect_to root_path
+    if @record.is_a?(TuftsTemplate)
+      flash[:notice] = "\"#{@record.template_name}\" has been purged"
+      redirect_to templates_path
+    else
+      flash[:notice] = "\"#{@record.title}\" has been purged"
+      redirect_to root_path
+    end
   end
 
   def cancel
@@ -110,13 +129,29 @@ class RecordsController < ApplicationController
       authorize! :destroy, @record
       @record.destroy
     end
-    redirect_to root_path
+    if @record.is_a?(TuftsTemplate)
+      redirect_to templates_path
+    else
+      redirect_to root_path
+    end
+  end
+
+  def redirect_after_update
+    if @record.is_a?(TuftsTemplate)
+      templates_path
+    else
+      main_app.catalog_path @record
+    end
   end
 
   def set_attributes
     @record.working_user = current_user
     # set rightsMetadata access controls
     @record.apply_depositor_metadata(current_user)
+
+    # pull out because it's not a real attribute (it's derived, but still updatable)
+    @record.stored_collection_id = params[ActiveModel::Naming.singular(@record)].delete(:stored_collection_id).try(&:first)
+
     super
   end
 
@@ -124,6 +159,14 @@ class RecordsController < ApplicationController
 
   def load_object
     @record = ActiveFedora::Base.find(params[:id], cast: true)
+  end
+
+  def next_page
+    if @record.is_a?(TuftsTemplate)
+      hydra_editor.edit_record_path(@record)
+    else
+      record_attachments_path(@record)
+    end
   end
 
 end

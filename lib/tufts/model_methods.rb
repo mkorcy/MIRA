@@ -321,6 +321,8 @@ module Tufts
 	"RCRs"
       when "info:fedora/afmodel:TuftsVideo"
 	"Videos"
+      when "info:fedora/afmodel:TuftsTemplate"
+        "Template"
       else
         COLLECTION_ERROR_LOG.error "Could not determine Format for : #{pid} with model #{model.inspect}"
       end

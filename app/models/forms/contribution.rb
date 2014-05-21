@@ -66,12 +66,8 @@ protected
     insert_rels_ext_relationships
   end
 
-  def source
-    'PB'
-  end
-
-  def parent
-    ActiveFedora::Base.find("tufts:UA069.001.DO.#{source}", cast: true)
+  def parent_collection
+    'tufts:UA069.001.DO.PB'
   end
 
   def license_data(contribution)
@@ -82,9 +78,7 @@ protected
 
   def insert_rels_ext_relationships
     return unless @tufts_pdf
-    @tufts_pdf.collection = parent
-    @tufts_pdf.ead = parent
-    @tufts_pdf.add_relationship(:oai_item_id, "oai:#{@tufts_pdf.pid}", true)
+    @tufts_pdf.stored_collection_id = parent_collection
     @tufts_pdf.rels_ext.serialize!
   end
 

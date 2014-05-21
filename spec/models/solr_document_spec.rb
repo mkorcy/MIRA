@@ -3,6 +3,12 @@ require 'spec_helper'
 describe SolrDocument do
   before { subject['id'] = 'tufts:7'}
 
+  it 'knows if the object is part of a batch' do
+    expect(subject.in_a_batch?).to be_false
+    subject['batch_id_ssim'] = ['1']
+    expect(subject.in_a_batch?).to be_true
+  end
+
   describe "#preview_fedora_path" do
     describe "should always have link to fedora object" do
       before { subject['displays_ssi'] = nil }
@@ -29,6 +35,66 @@ describe SolrDocument do
       before { subject['displays_ssi'] = 'tisch'}
       its(:preview_dl_path) {should == nil}
     end
+    describe "when the object is a template" do
+      before do
+        subject['displays_ssi'] = 'dl'
+        subject['active_fedora_model_ssi'] = 'TuftsTemplate'
+      end
+      its(:preview_dl_path) {should == nil}
+    end
+  end
+
+  describe 'Templates' do
+    before do
+      edit_date_key = Solrizer.solr_name("edited_at", :stored_sortable, type: :date)
+      @template = SolrDocument.new('active_fedora_model_ssi' => 'TuftsTemplate', edit_date_key => Time.now)
+      @pdf = SolrDocument.new('active_fedora_model_ssi' => 'TuftsPdf', edit_date_key => Time.now)
+    end
+
+    it 'knows whether or not an object is a template' do
+      @template.template?.should be_true
+      @pdf.template?.should be_false
+    end
+
+    it 'are not publishable' do
+      @template.publishable?.should be_false
+      @pdf.publishable?.should be_true
+    end
+  end
+
+  describe 'Reviewing an object:' do
+    before do
+      @doc = SolrDocument.new(
+        'active_fedora_model_ssi' => 'TuftsPdf',
+        'batch_id_ssim' => ['1'])
+    end
+
+    it 'knows if an object has been reviewed already' do
+      @doc.reviewed?.should be_false
+      @doc['qrStatus_tesim'] = Reviewable.batch_review_text
+      @doc.reviewed?.should be_true
+    end
+
+    it 'knows if an object is reviewable' do
+      @doc.reviewable?.should be_true
+    end
+
+    it 'an object that has already been reviewed is not reviewable' do
+      @doc['qrStatus_tesim'] = Reviewable.batch_review_text
+      @doc.reviewed?.should be_true
+      @doc.reviewable?.should be_false
+    end
+
+    it 'templates are not reviewable' do
+      @doc['active_fedora_model_ssi'] = 'TuftsTemplate'
+      @doc.reviewable?.should be_false
+    end
+
+    it 'an object that is not in a batch is not reviewable' do
+      @doc['batch_id_ssim'] = nil
+      @doc.reviewable?.should be_false
+    end
+
   end
 
 end

@@ -21,6 +21,7 @@ module Tufts
     config.autoload_paths += %W(#{config.root}/lib 
                                 #{config.root}/app/models/datastreams
                                 #{config.root}/app/models/forms
+                                #{config.root}/lib/view_objects
                                )
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -31,9 +32,20 @@ module Tufts
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
   end
+end
 
-  def self.queue
-    @queue ||= Resque::Queue.new('derivatives')
+if Rails.env.development? and ENV['EXPLAIN_PARTIALS']
+  module ActionView
+    class PartialRenderer
+      def render_with_explanation(*args)
+        rendered = render_without_explanation(*args).to_s
+        # debugger if @template.inspect.to_s == "nil" # how do we get a path when @template is nil?
+        start_explanation = "\n<!-- START PARTIAL #{@template.inspect} -->\n"
+        end_explanation = "\n<!-- END PARTIAL #{@template.inspect} -->\n"
+        start_explanation.html_safe + rendered + end_explanation.html_safe
+      end
+
+      alias_method_chain :render, :explanation
+    end
   end
 end
-require 'queue/resque'

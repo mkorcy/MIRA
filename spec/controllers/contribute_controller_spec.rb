@@ -5,9 +5,6 @@ describe ContributeController do
   before do
     TuftsPdf.destroy_all
   end
-  before :all do
-    create_ead('PB')
-  end
 
   describe "for a not-signed in user" do
     describe "new" do
@@ -63,9 +60,6 @@ describe ContributeController do
           get 'new', {deposit_type: @deposit_type.id}
           response.should render_template('contribute/deposit_view/_generic_deposit')
         end
-
-        it 'should include a title input'
-        it 'should include a file upload input'
 
         it 'should include deposit license text' do
           get 'new', {deposit_type: @deposit_type.id}

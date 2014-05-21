@@ -23,6 +23,16 @@ describe Ability do
       it { should be_able_to(:remove_user, Role) }
     end
 
+    describe "batch operations" do
+      it { should be_able_to(:index, Batch) }
+      it { should be_able_to(:new_template_import, Batch) }
+      it { should be_able_to(:new_xml_import, Batch) }
+      it { should be_able_to(:create, Batch) }
+      it { should be_able_to(:show, Batch) }
+      it { should be_able_to(:edit, Batch) }
+      it { should be_able_to(:update, Batch) }
+    end
+
     describe "working on Deposit Type" do
       it { should be_able_to(:create, DepositType) }
       it { should be_able_to(:read, DepositType) }
@@ -33,7 +43,7 @@ describe Ability do
 
     describe "working on TuftsAudio" do
       before :all do
-        @audio = TuftsAudio.create!(title: 'test audio')
+        @audio = TuftsAudio.create!(title: 'test audio', displays: ['dl'])
       end
       after :all do
         @audio.destroy
@@ -41,6 +51,7 @@ describe Ability do
       it { should be_able_to(:create, TuftsAudio) }
       it { should be_able_to(:edit, @audio) }
       it { should be_able_to(:update, @audio) }
+      it { should be_able_to(:review, @audio) }
       it { should be_able_to(:publish, @audio) }
       it { should be_able_to(:destroy, @audio) }
     end
@@ -55,6 +66,16 @@ describe Ability do
       it { should_not be_able_to(:show, Role) }
       it { should_not be_able_to(:add_user, Role) }
       it { should_not be_able_to(:remove_user, Role) }
+    end
+
+    describe "batch operations" do
+      it { should_not be_able_to(:index, Batch) }
+      it { should_not be_able_to(:new_template_import, Batch) }
+      it { should_not be_able_to(:new_xml_import, Batch) }
+      it { should_not be_able_to(:create, Batch) }
+      it { should_not be_able_to(:show, Batch) }
+      it { should_not be_able_to(:edit, Batch) }
+      it { should_not be_able_to(:update, Batch) }
     end
 
     describe "working on Deposit Type" do
@@ -82,6 +103,7 @@ describe Ability do
         it { should     be_able_to(:update, @self_deposit) }
         it { should     be_able_to(:destroy, @self_deposit) }
         it { should_not be_able_to(:publish, @self_deposit) }
+        it { should_not be_able_to(:review, @self_deposit) }
       end
 
       describe "that they don't own" do
@@ -96,6 +118,7 @@ describe Ability do
         it { should_not be_able_to(:update, @another_deposit) }
         it { should_not be_able_to(:destroy, @another_deposit) }
         it { should_not be_able_to(:publish, @another_deposit) }
+        it { should_not be_able_to(:review, @another_deposit) }
       end
     end
 
@@ -111,6 +134,7 @@ describe Ability do
         end
         it { should     be_able_to(:edit, @audio) }
         it { should     be_able_to(:update, @audio) }
+        it { should_not be_able_to(:review, @audio) }
         it { should_not be_able_to(:publish, @audio) }
         it { should     be_able_to(:destroy, @audio) }
       end
@@ -124,6 +148,7 @@ describe Ability do
         end
         it { should_not be_able_to(:edit, @audio) }
         it { should_not be_able_to(:update, @audio) }
+        it { should_not be_able_to(:review, @audio) }
         it { should_not be_able_to(:publish, @audio) }
         it { should_not be_able_to(:destroy, @audio) }
       end
@@ -151,7 +176,7 @@ describe Ability do
     end
     
     describe "working on a PDF" do
-      let(:pdf) { TuftsPdf.create!(title: 'test pdf', read_groups: ['public'])}
+      let(:pdf) { TuftsPdf.create!(title: 'test pdf', read_groups: ['public'], displays: ['dl'])}
       after { pdf.destroy }
 
       it "should be visible to a not-signed-in user" do

@@ -61,9 +61,20 @@ end
 $ QUEUE=* rake resque:work
 ```
 
+### Optional: start resque-web
+
+```bash
+resque-web config/resque_conf.rb
+```
+
 ## Start hydra-jetty
 ```bash
 $ rake jetty:start
+```
+
+## Start redis
+```bash
+redis-server
 ```
 
 ```bash
@@ -71,6 +82,14 @@ $ rails s
 ```
 
 ## Loading Data
+
+### Load some fixture data into your dev environment
+
+Make sure jetty is running, then run the rake task:
+
+```bash
+rake fixtures
+```
 
 ### Importing deposit types from a CSV file
 

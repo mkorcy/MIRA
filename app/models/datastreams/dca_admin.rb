@@ -2,6 +2,7 @@ class DcaAdmin < ActiveFedora::OmDatastream
   set_terminology do |t|
     t.root(:path => "admin", 'xmlns'=>"http://nils.lib.tufts.edu/dcaadmin/", 'xmlns:ac'=>"http://purl.org/dc/dcmitype/")
 
+    t.template_name index_as: :stored_searchable, path: 'templateName'
     t.steward index_as: :stored_searchable
     t.name namespace_prefix: "ac", index_as: :stored_searchable
     t.comment namespace_prefix: "ac", index_as: :stored_searchable
@@ -11,7 +12,7 @@ class DcaAdmin < ActiveFedora::OmDatastream
     t.status index_as: :stored_searchable
     t.startDate index_as: :stored_searchable
     t.expDate index_as: :stored_searchable
-    t.qrStatus index_as: :stored_searchable
+    t.qrStatus index_as: [:stored_searchable, :facetable]
     t.rejectionReason index_as: :stored_searchable
     t.note index_as: :stored_searchable
     t.createdby
@@ -19,6 +20,7 @@ class DcaAdmin < ActiveFedora::OmDatastream
     t.published_at(:path => "publishedAt", :type=>:time, index_as: :stored_sortable)
     t.edited_at(:path => "editedAt", :type=>:time, index_as: :stored_sortable)
     t.creatordept
+    t.batch_id index_as: :symbol, :path => 'batchID'
   end
 
   # BUG?  Extra solr fields are generated when there is a default namespace (xmlns) declared on the root.

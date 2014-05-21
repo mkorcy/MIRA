@@ -8,6 +8,10 @@ require 'rspec/autorun'
 # in spec/support/ and its subdirectories.
 Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
+def clean_up_carrierwave_files
+  FileUtils.rm_rf(CarrierWave::Uploader::Base.root)
+end
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   
@@ -23,7 +27,16 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-  config.before(:suite) { User.destroy_all}
+
+  config.before(:suite) do
+    User.destroy_all
+    clean_fedora_and_solr
+  end
+
+  config.after(:suite) do
+    clean_fedora_and_solr
+    clean_up_carrierwave_files
+  end
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
@@ -31,11 +44,20 @@ RSpec.configure do |config|
   #     --seed 1234
   #
   config.order = "random"
+
 end
 
-def create_ead(source)
-  pid = "tufts:UA069.001.DO.#{source}"
-  unless TuftsEAD.exists?(pid)
-    TuftsEAD.create!(pid: pid, title: "Test #{source}")
+def find_or_create_ead(pid)
+  if TuftsEAD.exists?(pid)
+    TuftsEAD.find(pid)
+  else
+    TuftsEAD.create!(pid: pid, title: "Test #{pid}", displays: ['dl'])
   end
 end
+
+def clean_fedora_and_solr
+  ActiveFedora::Base.delete_all
+  solr = ActiveFedora::SolrService.instance.conn
+  solr.delete_by_query("*:*", params: { commit: true })
+end
+

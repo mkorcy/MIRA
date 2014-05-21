@@ -3,10 +3,10 @@ require 'spec_helper'
 feature 'View unpublished documents' do
   before do
     TuftsAudio.where(title: "Very unique title").destroy_all
-    @production = TuftsAudio.new(title: 'Very unique title', description: 'eh?', creator: 'Fred')
+    @production = TuftsAudio.new(title: 'Very unique title', description: 'eh?', creator: 'Fred', displays: ['dl'])
     @production.push_to_production!
 
-    @not_production = TuftsAudio.new(title: 'Very unique title', description: 'eh?', creator: 'Fred')
+    @not_production = TuftsAudio.new(title: 'Very unique title', description: 'eh?', creator: 'Fred', displays: ['dl'])
     @not_production.save!
 
     sign_in :admin
@@ -21,6 +21,23 @@ feature 'View unpublished documents' do
 
     page.should have_link('Very unique title', href: catalog_path(@not_production) )
     page.should_not have_link('Very unique title', href: catalog_path(@production) )
+  end
+
+  context 'with a TuftsTemplate' do
+    before do
+      TuftsTemplate.destroy_all
+      @template = TuftsTemplate.new(template_name: 'My Template')
+      @template.save!
+      visit root_path
+      click_link 'Unpublished objects'
+    end
+
+    after { @template.delete }
+
+    it 'does not include the template in the results' do
+      page.should have_link('Very unique title', href: catalog_path(@not_production) )
+      page.should_not have_link('My Template', href: catalog_path(@template) )
+    end
   end
 end
 

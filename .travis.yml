@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - "2.0.0"
+  - "2.1.1"
 
 notifications:
   email:
@@ -18,3 +18,5 @@ before_script:
   - cp config/devise.yml.sample config/devise.yml
   - cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb
 
+services:
+  - redis-server

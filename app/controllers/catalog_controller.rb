@@ -18,6 +18,7 @@ class CatalogController < ApplicationController
     super
   end
 
+
   configure_blacklight do |config|
     config.default_solr_params = { 
       :qt => 'search',
@@ -58,6 +59,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('subject', :facetable), :label => 'Subject', :limit => 7 
     config.add_facet_field solr_name('object_type', :facetable), :label => 'Format', :limit => 7
     config.add_facet_field solr_name('deposit_method', :stored_sortable), :label => 'Deposit Method', :limit => 7
+    config.add_facet_field solr_name('qrStatus', :facetable), :label => 'QR Status', :limit => 7
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -78,6 +80,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
     config.add_show_field 'id', :label => 'Pid:'
+    config.add_show_field solr_name("object_state", :stored_sortable), :label => 'Fedora Object State', :helper_method => :fedora_object_state
     config.add_show_field solr_name('creator', :stored_searchable), :label => 'Creator:'
     config.add_show_field solr_name('source2', :stored_searchable), :label => 'Source:'
     config.add_show_field solr_name('description', :stored_searchable), :label => 'Description:'
@@ -161,6 +164,15 @@ class CatalogController < ApplicationController
       }
     end
 
+    config.add_search_field('batch') do |field|
+      field.solr_local_parameters = {
+        :qf => 'batch_id_ssim',
+        :pf => 'batch_id_ssim'
+      }
+    end
+
+    include AdvancedSearchFields
+
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
@@ -173,13 +185,20 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
     config.spell_max = 5
+
+    # Add larger pagination options per Tufts request
+    config.per_page = [10,20,50,100,500,1000]
   end
 
 protected
 
   def exclude_unwanted_models(solr_parameters, user_parameters)
     solr_parameters[:fq] ||= []
-    solr_parameters[:fq] << "-#{ActiveFedora::SolrService.solr_name("object_state", :stored_sortable)}:\"D\""
+    solr_parameters[:fq] << "NOT #{ActiveFedora::SolrService.solr_name("object_state", :stored_sortable)}:\"D\""
+    solr_parameters[:fq] << filter_templates
   end
 
+  def filter_templates
+    "NOT active_fedora_model_ssi:TuftsTemplate"
+  end
 end 

@@ -12,4 +12,4 @@ class UnpublishedController < CatalogController
     solr_parameters[:fq] << "{!frange l=0 incl=false}sub(#{changed},#{published})"
   end
 
-end 
+end

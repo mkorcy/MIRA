@@ -12,12 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require 'blacklight_advanced_search'
 //
 // Required by Blacklight
 //= require blacklight/blacklight
 //= require bootstrap-tab
 //= require bootstrap-typeahead
 //= require hydra-editor/hydra-editor
-//= require jquery-fileupload/basic
+//= require jquery-fileupload
+//= require batch_edit
 //= require_tree .
 //

@@ -2,9 +2,6 @@ require 'spec_helper'
 require 'nokogiri'
 
 describe Contribution do
-  before :all do
-    create_ead('PB')
-  end
 
   describe "validation" do
     describe "on title" do
@@ -48,6 +45,16 @@ describe Contribution do
     subject.license.should == ['License 1', 'License 2']
   end
 
+  it 'sets a parent collection' do
+    subject.tufts_pdf.stored_collection_id.should == 'tufts:UA069.001.DO.PB'
+  end
+
+  it "returns ead and collection relationships when the collection object exists" do
+    ead = find_or_create_ead('tufts:UA069.001.DO.PB')
+    subject.tufts_pdf.ead.should == ead
+    subject.tufts_pdf.collection.should == ead
+  end
+
   describe "saving" do
     before do
       path = '/local_object_store/data01/tufts/central/dca/MISS/archival_pdf/MISS.ISS.IPPI.archival.pdf'
@@ -64,12 +71,14 @@ describe Contribution do
     end
 
     it "has OAI item ID in the rels-ext" do
+      subject.save
       expected_value = "oai:#{subject.tufts_pdf.pid}"
       rels_ext = Nokogiri::XML(subject.tufts_pdf.rels_ext.content)
       namespace = "http://www.openarchives.org/OAI/2.0/"
       prefix = rels_ext.namespaces.key(namespace).match(/xmlns:(.*)/)[1]
       rels_ext.xpath("//rdf:Description/#{prefix}:itemID").text.should == expected_value
     end
+
   end
 
   describe "with deposit_type" do
@@ -84,8 +93,12 @@ describe Contribution do
       expected_data = [@deposit_type.license_name, 'blerg'].sort
       @contribution.tufts_pdf.license.sort.should == expected_data
     end
+
+    it 'sets a parent collection' do
+      @contribution.tufts_pdf.stored_collection_id.should == 'tufts:UA069.001.DO.PB'
+    end
   end
 
-  it_behaves_like 'rels-ext collection and ead correspond to source value', 'PB'
+  it_behaves_like 'rels-ext collection and ead correspond to parent collection'
 
 end

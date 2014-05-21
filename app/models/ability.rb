@@ -9,8 +9,9 @@ class Ability
     if current_user.admin?
       can_read_all_documents
       can [:create, :show, :add_user, :remove_user, :index], Role
-      can [:create, :read, :update, :publish, :destroy], ActiveFedora::Base
+      can [:create, :read, :update, :review, :publish, :destroy], ActiveFedora::Base
       can [:create, :read, :update, :destroy, :export], DepositType
+      can [:index, :new_template_import, :new_xml_import, :create, :show, :edit, :update], Batch
     end
   end
 
