@@ -4,7 +4,7 @@
   <div><%= f.label :username, :class=>'placeholder' %>
     <%= f.text_field :username, :autofocus => true, :placeholder=>'Username', :autofocus=>true %></div>
   <div><%= f.label :password, :class=>'placeholder' %>
-    <%= f.password_field :password, :autofocus => true, :placeholder=>'Password' %></div>
+    <%= f.password_field :password, :autofocus => false, :placeholder=>'Password' %></div>
   <% if devise_mapping.rememberable? -%>
     <div><label class="checkbox">
       <%= f.check_box :remember_me %>
