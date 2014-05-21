@@ -28,6 +28,7 @@ class RecordsController < ApplicationController
     end
   end
 
+begin
   def edit
      @record = ActiveFedora::Base.find(params[:id], cast: true)
      #if this object has the old style DCA-ADMIN datasteram, indicated by the old XML schema
@@ -86,6 +87,7 @@ class RecordsController < ApplicationController
      authorize! :edit, @record
      initialize_fields
   end
+end
 
   def review
     if @record.respond_to?(:reviewed)
