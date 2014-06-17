@@ -1,5 +1,6 @@
 class TuftsVideo < TuftsBase
-  has_metadata "ARCHIVAL_XML", type: TuftsAudioTextMeta
+#  has_metadata "ARCHIVAL_XML", type: TuftsAudioTextMeta
+  has_file_datastream 'ARCHIVAL_XML', control_group: 'E', original: true
 
   has_file_datastream 'Access.mp4', control_group: 'E'
   has_file_datastream 'Access.webm', control_group: 'E'
@@ -17,7 +18,7 @@ class TuftsVideo < TuftsBase
   #   # => /local_object_store/data01/tufts/central/dca/MS054/archival_xml/MS054.003.DO.02108.archival.tif
   def file_path(name, extension = nil)
     case name
-    when 'Archival.video'
+    when 'Archival.video','ARCHIVAL_XML'
       if self.datastreams[name].dsLocation
         self.datastreams[name].dsLocation.sub(Settings.trim_bucket_url + '/' + object_store_path, "")
       else
