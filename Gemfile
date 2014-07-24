@@ -51,6 +51,7 @@ group :development, :test do
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'byebug', require: false
+  gem 'ladle'
 end
 
 gem 'chronic' # for lib/tufts/model_methods.rb
