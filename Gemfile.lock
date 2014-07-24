@@ -229,6 +229,8 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    ladle (1.0.0)
+      open4 (~> 1.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
@@ -529,6 +531,7 @@ DEPENDENCIES
   jettywrapper
   jquery-fileupload-rails
   jquery-rails
+  ladle
   launchy
   mysql2
   poltergeist
