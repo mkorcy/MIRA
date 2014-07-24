@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'ladle'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -31,6 +32,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     User.destroy_all
     clean_fedora_and_solr
+    @ldap_server = Ladle::Server.new(:quiet => false, :ldif => File.expand_path('../fixtures/tufts_ldap.ldif', __FILE__)).start
   end
 
   config.after(:suite) do

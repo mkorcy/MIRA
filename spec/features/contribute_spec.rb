@@ -50,7 +50,8 @@ describe 'Contribute' do
         page.should have_select 'deposit_type'
       end
       it 'should provide a button to create new deposits' do
-        page.should have_button 'Begin'
+        visit '/contribute'
+        page.should have_selector("input[type=submit][value='Begin']")
       end
     end
   end
