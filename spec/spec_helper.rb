@@ -2,9 +2,9 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
+require 'ladle'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -42,6 +42,7 @@ RSpec.configure do |config|
     WebMock.allow_net_connect!
     clean_fedora_and_solr
     DatabaseCleaner.clean_with(:truncation)
+    @ldap_server = Ladle::Server.new(:quiet => false, :ldif => File.expand_path('../fixtures/tufts_ldap.ldif', __FILE__)).start
   end
 
   config.after(:suite) do
