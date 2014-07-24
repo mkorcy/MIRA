@@ -23,7 +23,11 @@ class User < ActiveRecord::Base
   end
 
   def display_name  #update this method to return the string you would like used for the user name stored in fedora objects.
-    self.user_key
+    if Rails.env.test?
+			self.username
+    else
+      Devise::LDAP::Adapter.get_ldap_param(self.username,"tuftsEduDisplayNameLF")[0]
+    end
   end
 
 end
