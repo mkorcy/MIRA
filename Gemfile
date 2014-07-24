@@ -58,6 +58,7 @@ group :debug do
   gem 'unicorn'
   gem 'launchy'
   gem 'byebug', require: false
+  gem 'ladle'
 end
 
 gem 'chronic' # for lib/tufts/model_methods.rb
