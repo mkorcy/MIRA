@@ -30,7 +30,15 @@ module AttachedFiles
   end
 
   def remote_url_for(name, extension)
-    File.join(remote_root, file_path(name, extension))
+    begin
+      #if its already defined in a previous version keep it the same
+      file_path = self.datastreams[name].dsLocation
+    rescue
+      file_path = File.join(remote_root, file_path(name, extension))
+    end
+
+    file_path
+
   end
 
   def local_path_for(name, extension=nil)
