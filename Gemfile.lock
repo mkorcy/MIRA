@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/TuftsUniversity/hydra-editor.git
+  revision: 7b91e34dbce6d915c2cc0097475318066ddf4254
+  branch: 0.1.0_with_hyphens_allowed
+  specs:
+    hydra-editor (0.1.0)
+      active-fedora (>= 6.3.0)
+      bootstrap_forms
+      rails (>= 3.2.13, < 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -152,10 +162,6 @@ GEM
       hydra-access-controls (= 6.5.2)
       jettywrapper (>= 1.4.1)
       rails (>= 3.2.3, < 5)
-    hydra-editor (0.1.0)
-      active-fedora (>= 6.3.0)
-      bootstrap_forms
-      rails (>= 3.2.13, < 5.0)
     hydra-head (6.5.2)
       hydra-access-controls (= 6.5.2)
       hydra-core (= 6.5.2)
@@ -372,7 +378,7 @@ DEPENDENCIES
   factory_girl_rails
   hydra (= 6.2.0)
   hydra-batch-edit (= 1.1.1)
-  hydra-editor (= 0.1.0)
+  hydra-editor!
   hydra-role-management (= 0.1.0)
   jettywrapper
   jquery-fileupload-rails
