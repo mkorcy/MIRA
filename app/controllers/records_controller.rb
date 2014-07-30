@@ -15,6 +15,7 @@ class RecordsController < ApplicationController
 
     if !args[:pid] || (args[:pid] && /:/.match(args[:pid]))
       if ActiveFedora::Base.exists?(args[:pid])
+
         flash[:alert] = "A record with the pid \"#{args[:pid]}\" already exists."
         redirect_to hydra_editor.edit_record_path(args[:pid])
       else
@@ -147,6 +148,9 @@ end
   end
 
   def set_attributes
+    # setting the state to A here fixes an issue where if you purge an object, and then recreate the object in MIRA
+    # the records get set up correctly in SOLR but in Fedora the object itself remains deactivated which is wrong
+    @record.state = "A"
     @record.working_user = current_user
     # set rightsMetadata access controls
     @record.apply_depositor_metadata(current_user)
