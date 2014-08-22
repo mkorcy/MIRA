@@ -11,7 +11,7 @@ module AttachedFiles
   end
 
   def store_archival_file(dsid, file)
-    extension = file.original_filename.split('.').last
+      extension = file.original_filename.split('.').last
     make_directory_for_datastream(dsid)
     File.open(local_path_for(dsid, extension), 'wb') do |f| 
       f.write file.read 
@@ -21,7 +21,7 @@ module AttachedFiles
     ds = datastreams[dsid]
     ds.dsLocation = remote_url_for(dsid, extension)
     ds.mimeType = file.content_type
-    Job::CreateDerivatives.create(record_id: pid)
+   # Job::CreateDerivatives.create(record_id: pid)
   end
 
   def make_directory_for_datastream(dsid)
@@ -33,6 +33,9 @@ module AttachedFiles
     begin
       #if its already defined in a previous version keep it the same
       file_path = self.datastreams[name].dsLocation
+      if file_path.niL?
+        file_path = File.join(remote_root, file_path(name, extension))
+      end
     rescue
       file_path = File.join(remote_root, file_path(name, extension))
     end
