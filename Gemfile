@@ -16,7 +16,7 @@ gem 'qa', '0.0.3'
 gem 'sanitize', '2.0.6'
 
 gem 'disable_assets_logger', :group => :development
-gem 'devise_ldap_authenticatable', '0.7.0'
+gem 'devise_ldap_authenticatable', '0.8.1'
 
 gem 'sass-rails',   '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -36,7 +36,8 @@ gem 'resque-status'
 gem 'carrierwave', '~> 0.10.0'
 
 gem 'blacklight_advanced_search'
-gem 'tufts_models', github: 'curationexperts/tufts_models', :tag => 'v1.0.0.rc1'
+#gem 'tufts_models', github: 'curationexperts/tufts_models', :tag => 'v1.0.0.rc1'
+gem 'tufts_models', github: 'mkorcy/tufts_models', :branch => 'rebase_reconciliation'
 
 group :development do
   gem 'jettywrapper'
