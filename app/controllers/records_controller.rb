@@ -46,27 +46,28 @@ class RecordsController < ApplicationController
     redirect_to catalog_path(@record)
   end
 
-  def edit
-     @record = ActiveFedora::Base.find(params[:id], cast: true)
+#  def edit
+#     initialize_fields
+
      #if this object has the old style DCA-ADMIN datasteram, indicated by the old XML schema
-     if @record.datastreams['DCA-ADMIN'].ng_xml.to_s[/<dca_admin:admin/]
+#     if resource.datastreams['DCA-ADMIN'].ng_xml.to_s[/<dca_admin:admin/]
        #create a new dca-admin stream
-       admin_stream = DcaAdmin.new
+#       admin_stream = DcaAdmin.new
        #check if this is a perseus object, an aah object or otherwise assume its a dl object
-       if @record.pid[/perseus/]
-         admin_stream.displays = 'perseus'
-       elsif @record.pid[/aah/]
-         admin_stream.displays = 'aah'
-       else
-         admin_stream.displays = 'dl'
-       end
+#       if resource.pid[/perseus/]
+#         admin_stream.displays = 'perseus'
+#       elsif resource.pid[/aah/]
+#         admin_stream.displays = 'aah'
+#       else
+#         admin_stream.displays = 'dl'
+#       end
 
        #set the steward to dca since we know that to be true for all objects that predate the hydra admin head
-       admin_stream.steward = 'dca'
-       @record.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
-       @record.save
-
-     end
+#       admin_stream.steward = 'dca'
+#       resource.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
+#       resource.save
+#
+#     end
      #if this object has the newer style DCA-ADMIN datastream which is not compatible with what MIRA expects update it.
      #<ac xmlns="http://www.fedora.info/definitions/"
      #2.0.0p195 :073 > builder = Nokogiri::XML::Builder.new do |xml|
@@ -81,30 +82,29 @@ class RecordsController < ApplicationController
      #2.0.0p195 :080 > admin_stream.to_xml
      # => "<admin xmlns=\"http://nils.lib.tufts.edu/dcaadmin/\" xmlns:ac=\"http://purl.org/dc/dcmitype/\">\n  <displays>dig</displays>\n  <displays>dug</displays>\n</admin>"
 
-     if @record.datastreams['DCA-ADMIN'].ng_xml.to_s[/<ac xmlns="http:\/\/www.fedora/]
-       logger.error("badly formed dca-admin datastream, will update")
-       xml_doc = Nokogiri::XML(@record.datastreams['DCA-ADMIN'].ng_xml.to_s)
-       displays_array = xml_doc.xpath('//local:displays')
-       steward_array = xml_doc.xpath('//local:steward')
-       builder = Nokogiri::XML::Builder.new do |xml|
-         xml.admin("xmlns"=>"http://nils.lib.tufts.edu/dcaadmin/","xmlns:ac"=>"http://purl.org/dc/dcmitype/") {
-           displays_array.each {|item|
-             xml.displays(item.text)
-            }
-           steward_array.each {|item|
-             xml.steward(item.text)
-           }
-         }
-       end
-
-       admin_stream = DcaAdmin.from_xml(builder.doc)
-       @record.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
-       @record.save
-     end
-     authorize! :edit, @record
-     initialize_fields
-  end
-end
+#     if resource.datastreams['DCA-ADMIN'].ng_xml.to_s[/<ac xmlns="http:\/\/www.fedora/]
+#       logger.error("badly formed dca-admin datastream, will update")
+#       xml_doc = Nokogiri::XML(@record.datastreams['DCA-ADMIN'].ng_xml.to_s)
+#       displays_array = xml_doc.xpath('//local:displays')
+#       steward_array = xml_doc.xpath('//local:steward')
+#       builder = Nokogiri::XML::Builder.new do |xml|
+#         xml.admin("xmlns"=>"http://nils.lib.tufts.edu/dcaadmin/","xmlns:ac"=>"http://purl.org/dc/dcmitype/") {
+#           displays_array.each {|item|
+#             xml.displays(item.text)
+#            }
+#           steward_array.each {|item|
+#             xml.steward(item.text)
+#           }
+#         }
+#       end
+#
+#       admin_stream = DcaAdmin.from_xml(builder.doc)
+#       resource.datastreams['DCA-ADMIN'].ng_xml = admin_stream.ng_xml
+#       resource.save
+#     end
+#    initialize_fields
+#		render 'records/edit'
+#  end
 
   def publish
     authorize! :publish, @record
@@ -151,8 +151,8 @@ end
   def set_attributes
     # setting the state to A here fixes an issue where if you purge an object, and then recreate the object in MIRA
     # the records get set up correctly in SOLR but in Fedora the object itself remains deactivated which is wrong
-    @record.state = "A"
-    @record.working_user = current_user
+    resource.state = "A"
+    resource.working_user = current_user
     # set rightsMetadata access controls
     resource.apply_depositor_metadata(current_user)
 
