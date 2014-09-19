@@ -11,7 +11,7 @@ describe SolrDocument do
 
   describe "#preview_fedora_path" do
     it "should always have link to fedora object" do
-      url = 'http://localhost:8983/fedora/objects/tufts:7'
+      url = 'http://localhost.prod.edu:8983/fedora/objects/tufts:7'
       subject['displays_ssim'] = nil
       expect(subject.preview_fedora_path).to eq url
       subject['displays_ssim'] = ['dl']
@@ -22,7 +22,7 @@ describe SolrDocument do
   end
 
   describe "#preview_dl_path" do
-    let(:url) { 'http://dev-dl.lib.tufts.edu/catalog/tufts:7' }
+    let(:url) { 'http://dl.tufts.edu/catalog/tufts:7' }
     describe "when displays is 'dl'" do
       before { subject['displays_ssim'] = ['dl'] }
       it "has a link to the fedora object" do
