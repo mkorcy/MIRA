@@ -45,7 +45,6 @@ end
 
 group :tdldev,:production do
   gem 'mysql2'
-  gem 'activerecord-mysql-adapter'
 end
 
 
