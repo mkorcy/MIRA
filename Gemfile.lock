@@ -1,7 +1,7 @@
 GIT
-  remote: git://github.com/mkorcy/tufts_models.git
-  revision: 5fa9617fac8a005942ec657ff341542a2a2c66b2
-  branch: rebase_reconciliation
+  remote: git://github.com/curationexperts/tufts_models.git
+  revision: 7660e24d36d892fe4d0cbb72cc6b3092d413e996
+  tag: v1.0.0.rc1
   specs:
     tufts_models (0.0.1)
       active-fedora (~> 7.0)

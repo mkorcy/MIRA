@@ -36,15 +36,15 @@ gem 'resque-status'
 gem 'carrierwave', '~> 0.10.0'
 
 gem 'blacklight_advanced_search'
-#gem 'tufts_models', github: 'curationexperts/tufts_models', :tag => 'v1.0.0.rc1'
-gem 'tufts_models', github: 'mkorcy/tufts_models', :branch => 'rebase_reconciliation'
+gem 'tufts_models', github: 'curationexperts/tufts_models', :tag => 'v1.0.0.rc1'
+#gem 'tufts_models', github: 'mkorcy/tufts_models', :branch => 'rebase_reconciliation'
 
 group :development do
   gem 'jettywrapper'
 end
 
 group :tdldev,:production do
-  gem 'mysql2'
+  #gem 'mysql2'
 end
 
 
