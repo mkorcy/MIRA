@@ -19,7 +19,7 @@ module BlacklightHelper
   # config and display the template_name_tesim instead.
   def document_heading(document=nil)
     document ||= @document
-    label = document[:template_name_tesim]
+    label = document[:template_name_tesim].try(&:first)
     label ||= super
   end
 

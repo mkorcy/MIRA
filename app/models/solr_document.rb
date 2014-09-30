@@ -1,59 +1,8 @@
 # -*- encoding : utf-8 -*-
-class SolrDocument 
+class SolrDocument
 
   include Blacklight::Solr::Document
-
+  include Tufts::SolrDocument
   # self.unique_key = 'id'
-  
-  def reviewed?
-    Array(self['qrStatus_tesim']).include?(Reviewable.batch_review_text)
-  end
-
-  def reviewable?
-    !template? && !reviewed? && in_a_batch?
-  end
-
-  def in_a_batch?
-    !Array(self['batch_id_ssim']).empty?
-  end
-
-  def published?
-    self[Solrizer.solr_name("edited_at", :stored_sortable, type: :date)] == 
-      self[Solrizer.solr_name("published_at", :stored_sortable, type: :date)]
-  end
-
-  def publishable?
-    !published? && !template?
-  end
-
-  def template?
-    self['active_fedora_model_ssi'] == 'TuftsTemplate'
-  end
-
-  def preview_fedora_path
-    if published?
-      fedora_url = Settings.preview_fedora_prod_url
-    else
-      fedora_url = Settings.preview_fedora_stage_url
-    end
-
-    fedora_url + "/objects/#{id}" 
-  end
-
-  def preview_dl_path
-    if published?
-      dl_url = Settings.preview_dl_prod_url
-    else
-      dl_url = Settings.preview_dl_stage_url
-    end
-
-    return nil if template?
-
-    if self['displays_ssi'].blank? || self['displays_ssi'] == 'dl'
-      dl_url + "/catalog/#{id}" 
-    else
-      return nil
-    end
-  end
 
 end

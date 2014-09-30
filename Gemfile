@@ -1,15 +1,23 @@
 source 'https://rubygems.org'
 #ruby-gemset=mira
 
-gem 'rails', '4.0.5'
-gem 'sqlite3'
+gem 'rails', '4.1.6'
 
-gem 'hydra', '6.2.0'
-gem 'hydra-role-management', '0.1.0'
-#gem 'hydra-editor', '0.1.0'
-gem 'hydra-editor', github: 'TuftsUniversity/hydra-editor', branch: '0.1.0_with_hyphens_allowed'
+gem 'sqlite3'
+gem 'mysql2'
+
+gem 'hydra-head', '~> 7.2.1'
+gem 'blacklight', '~> 5.7.1'
+gem 'active-fedora', '~> 7.1.1'
+gem 'hydra-editor', '~> 0.5.0'
+gem 'hydra-role-management', '0.2.0'
 gem 'hydra-batch-edit', '1.1.1'
-gem 'qa', '0.0.3'
+gem 'qa', '0.3.0'
+
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+
 gem 'sanitize', '2.0.6'
 
 gem 'solrizer'
@@ -28,15 +36,15 @@ gem 'jquery-rails'
 gem "jquery-fileupload-rails"
 
 gem "devise"
-gem 'bootstrap_forms'
+gem 'bootstrap_form'
 gem 'rmagick', '2.13.2', require: 'RMagick'
 gem 'resque-status'
 gem 'carrierwave', '~> 0.10.0'
 
-gem 'blacklight_advanced_search', '~> 2.2'
+gem 'blacklight_advanced_search'
+gem 'tufts_models', github: 'curationexperts/tufts_models', tag: 'v1.0.0.rc5'
 
 group :development do
-  gem 'unicorn'
   gem 'jettywrapper'
 end
 
@@ -47,10 +55,14 @@ end
 
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.99'
   gem 'capybara'
-  gem 'launchy'
   gem 'factory_girl_rails'
+end
+
+group :debug do
+  gem 'unicorn'
+  gem 'launchy'
   gem 'byebug', require: false
   gem 'ladle'
 end

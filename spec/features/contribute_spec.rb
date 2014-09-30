@@ -89,9 +89,9 @@ describe 'Contribute' do
           select 'Masters of International Business', from: 'Degree'
           expect(page).to have_selector 'select[required]'
           click_button "Agree & Deposit"
-          expect(page).to have_content "Title can't be blank"
-          expect(page).to have_content "Description can't be blank"
-          expect(page).to have_content "Attachment can't be blank"
+          expect(page).to have_selector('#contribution_title + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_description + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_attachment + .help-block', text: "can't be blank")
           fill_in 'Capstone project title', with: 'Test title'
           fill_in 'Short description', with: 'Test abstract'
           attach_file 'PDF to upload', File.join(fixture_path, '/local_object_store/data01/tufts/central/dca/MISS/archival_pdf/MISS.ISS.IPPI.archival.pdf')
@@ -108,9 +108,9 @@ describe 'Contribute' do
           visit "/contribute/new?deposit_type=#{honors_thesis_type.id}"
           fill_in 'Department', with: 'Dept. of Biology'
           click_button "Agree & Deposit"
-          expect(page).to have_content "Title can't be blank"
-          expect(page).to have_content "Description can't be blank"
-          expect(page).to have_content "Attachment can't be blank"
+          expect(page).to have_selector('#contribution_title + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_description + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_attachment + .help-block', text: "can't be blank")
           fill_in 'Thesis title', with: 'Test title'
           fill_in 'Short description', with: 'Test abstract'
           attach_file 'PDF to upload', File.join(fixture_path, '/local_object_store/data01/tufts/central/dca/MISS/archival_pdf/MISS.ISS.IPPI.archival.pdf')
@@ -125,9 +125,9 @@ describe 'Contribute' do
         it "should draw faculty_scholarship form" do
           visit "/contribute/new?deposit_type=#{faculty_scholarship_type.id}"
           click_button "Agree & Deposit"
-          expect(page).to have_content "Title can't be blank"
-          expect(page).to have_content "Description can't be blank"
-          expect(page).to have_content "Attachment can't be blank"
+          expect(page).to have_selector('#contribution_title + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_description + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_attachment + .help-block', text: "can't be blank")
           fill_in 'Title', with: 'Test title'
           fill_in 'Short description', with: 'Test abstract'
           attach_file 'PDF to upload', File.join(fixture_path, '/local_object_store/data01/tufts/central/dca/MISS/archival_pdf/MISS.ISS.IPPI.archival.pdf')
@@ -149,9 +149,9 @@ describe 'Contribute' do
         it "should draw faculty_scholarship form" do
           visit "/contribute/new?deposit_type=#{qualifying_paper_type.id}"
           click_button "Agree & Deposit"
-          expect(page).to have_content "Title can't be blank"
-          expect(page).to have_content "Description can't be blank"
-          expect(page).to have_content "Attachment can't be blank"
+          expect(page).to have_selector('#contribution_title + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_description + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_attachment + .help-block', text: "can't be blank")
           fill_in 'Title', with: 'Test title'
           fill_in 'Short description', with: 'Test abstract'
           attach_file 'PDF to upload', File.join(fixture_path, '/local_object_store/data01/tufts/central/dca/MISS/archival_pdf/MISS.ISS.IPPI.archival.pdf')
@@ -166,9 +166,9 @@ describe 'Contribute' do
         it "should draw faculty_scholarship form" do
           visit "/contribute/new?deposit_type=#{generic_deposit_type.id}"
           click_button "Agree & Deposit"
-          expect(page).to have_content "Title can't be blank"
-          expect(page).to have_content "Description can't be blank"
-          expect(page).to have_content "Attachment can't be blank"
+          expect(page).to have_selector('#contribution_title + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_description + .help-block', text: "can't be blank")
+          expect(page).to have_selector('#contribution_attachment + .help-block', text: "can't be blank")
           fill_in 'Title', with: 'Test title'
           fill_in 'Short description', with: 'Test abstract'
           attach_file 'PDF to upload', File.join(fixture_path, '/local_object_store/data01/tufts/central/dca/MISS/archival_pdf/MISS.ISS.IPPI.archival.pdf')

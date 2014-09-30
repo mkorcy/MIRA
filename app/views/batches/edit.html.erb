@@ -1,7 +1,7 @@
 <h1> Upload files </h1>
 
 <% if @pids_that_already_exist.present? %>
-  <div class="alert">
+  <div class="alert alert-warning">
     <strong>Warning:</strong> The following PIDs are already in use. Uploading files for them will overwrite them.
     <ul>
       <% @pids_that_already_exist.each do |pid| %>
@@ -44,9 +44,9 @@
   <table id="file-table" class="table table-striped">
     <thead>
       <tr>
-        <td class="span2" />
-        <td class="span4" />
-        <td class="span3" />
+        <td class="col-sm-2" />
+        <td class="col-sm-4" />
+        <td class="col-sm-3" />
       </tr>
     </thead>
     <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
