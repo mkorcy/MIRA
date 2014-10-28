@@ -1,5 +1,4 @@
 class TuftsDatastream < ActiveFedora::OmDatastream
-  include TuftsFileAssetsHelper
 
   def datastream_content
     begin
@@ -15,4 +14,12 @@ class TuftsDatastream < ActiveFedora::OmDatastream
     content = @content.read and @content.rewind if @content.kind_of? IO
     content ||= @content
   end
+
+  private
+
+  def convert_url_to_local_path(url)
+    Settings.object_store_root + url.gsub(Settings.trim_bucket_url, "")
+  end
+
+
 end

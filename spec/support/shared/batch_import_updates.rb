@@ -66,7 +66,7 @@ end
 
 shared_examples 'an import error path (failed to save batch)' do
   before do
-    allow(Batch).to receive(:find) { batch }
+    allow_any_instance_of(ActiveRecord::Relation).to receive(:find) { batch }
     allow(batch).to receive(:save) { false }
     @batch_error = 'Batch Error 1'
     batch.errors.add(:base, @batch_error)
@@ -123,9 +123,12 @@ shared_examples 'a JSON import' do
       @error2 = 'Record error 2'
       @pdf.errors.add(:base, @error1)
       @pdf.errors.add(:base, @error2)
-      allow(@pdf).to receive(:valid?) { true }
+      allow(@pdf).to receive(:valid?) { false }
       allow(@pdf).to receive(:persisted?) { false }
       allow(TuftsPdf).to receive(:new) { @pdf }
+      # we need to stub this because it calls TuftsPdf.new to see if the template is valid
+      # and we have that stubbed to return an invalid object
+      allow_any_instance_of(BatchTemplateImport).to receive(:template_creates_valid_object){ true }
 
       patch :update, id: batch.id, documents: [file1], format: :json
     end

@@ -1,10 +1,10 @@
 require 'import_export/metadata_xml_parser'
 
 class BatchesController < ApplicationController
-  before_filter :build_batch, only: [:create]
+  before_filter :build_batch, only: :create
   load_resource only: [:index, :show, :edit]
   before_filter :paginate, only: :index
-  before_filter :load_batch, only: [:update]
+  before_filter :load_batch, only: :update
   authorize_resource
 
   def index
@@ -61,7 +61,7 @@ class BatchesController < ApplicationController
     case @batch.type
     when 'BatchTemplateImport'
       handle_update_for_template_import
-   when 'BatchXmlImport'
+    when 'BatchXmlImport'
      handle_update_for_xml_import
     else
       flash[:error] = 'Unable to handle batch request.'
@@ -77,7 +77,7 @@ private
   end
 
   def load_batch
-    @batch = Batch.find(params.require(:id))
+    @batch = Batch.lock.find(params.require(:id))
   end
 
   def paginate
@@ -149,10 +149,6 @@ private
     end
   end
 
-  def collect_errors(batch, records)
-    (batch.errors.full_messages + records.map{|r| r.errors.full_messages }.flatten).compact
-  end
-
   # TODO: Take a look at the handle_update_for_template_import method, handle_update_for_xml_import method and attachments_controller update method, and see if we can pull out any common code.
 
   def handle_update_for_xml_import
@@ -161,6 +157,7 @@ private
       flash[:error] = "Please select some files to upload."
       render :edit
     else
+      save_status = nil
       document_statuses = params[:documents].map do |doc|
         record, warning, error = nil, nil, nil
         if @batch.uploaded_files.keys.include? doc.original_filename
@@ -172,7 +169,11 @@ private
             saved = save_record_with_document(record, doc)
             warning = collect_warning(record, doc)
             if saved
-              @batch.uploaded_files[doc.original_filename] = record.pid
+              Batch.transaction do
+                load_batch #reload batch within the transaction
+                @batch.uploaded_files[doc.original_filename] = record.pid
+                save_status = @batch.save
+              end
             end
           rescue MetadataXmlParserError => e
             error = e.message
@@ -182,7 +183,7 @@ private
       end
       docs, records, warnings, errors = document_statuses.transpose
 
-      successful = @batch.save &&  # our batch saved
+      successful = save_status &&  # our batch saved
         errors.compact.empty? &&   # we have no errors from building records
         records.all?(&:persisted?) # all our records saved
 
@@ -226,6 +227,10 @@ private
     else
       false
     end
+  end
+
+  def collect_errors(batch, records)
+    (batch.errors.full_messages + records.map{|r| r.errors.full_messages }.flatten).compact
   end
 
   def respond_to_import(successful, batch, document_statuses)

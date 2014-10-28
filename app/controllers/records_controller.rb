@@ -149,9 +149,7 @@ class RecordsController < ApplicationController
   end
 
   def set_attributes
-    # setting the state to A here fixes an issue where if you purge an object, and then recreate the object in MIRA
-    # the records get set up correctly in SOLR but in Fedora the object itself remains deactivated which is wrong
-    resource.state = "A"
+    resource.state = 'A' if resource.state == 'D'
     resource.working_user = current_user
     # set rightsMetadata access controls
     resource.apply_depositor_metadata(current_user)
