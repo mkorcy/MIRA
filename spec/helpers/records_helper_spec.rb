@@ -3,11 +3,12 @@ require 'spec_helper'
 describe RecordsHelper do
   it "should have object_type_options" do
     helper.object_type_options.should == {'Audio' => 'TuftsAudio', 
-       "Audio text" => "TuftsAudioText",
+       "Collection creator" => "TuftsRCR",
        "Collection guide" => "TuftsEAD",
        "Generic object" => "TuftsGenericObject",
        'Image' => 'TuftsImage',
        'PDF' => 'TuftsPdf',
+       'TEI' => 'TuftsTEI',
        'Template' => 'TuftsTemplate',
        'Voting Record' => 'TuftsVotingRecord'}
   end
@@ -21,11 +22,12 @@ describe RecordsHelper do
   it 'has sorted object types' do
     options = helper.sorted_object_types
     expect(options).to eq [["Audio", "TuftsAudio"],
-                           ["Audio text", "TuftsAudioText"],
+                           ["Collection creator", "TuftsRCR"],
                            ["Collection guide", "TuftsEAD"],
                            ["Generic object", "TuftsGenericObject"],
                            ["Image", "TuftsImage"],
                            ["PDF", "TuftsPdf"],
+                           ["TEI", "TuftsTEI"],
                            ["Template", "TuftsTemplate"],
                            ["Voting Record", "TuftsVotingRecord"]]
   end
