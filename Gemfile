@@ -38,8 +38,8 @@ gem 'resque-status'
 gem 'carrierwave', '~> 0.10.0'
 
 gem 'blacklight_advanced_search'
-gem 'tufts_models', github: 'curationexperts/tufts_models', ref: 'fe20b493536edf2a8dfbcedae9df110351aa6a97'
-
+#gem 'tufts_models', github: 'curationexperts/tufts_models', ref: 'fe20b493536edf2a8dfbcedae9df110351aa6a97'
+gem 'tufts_models', github: 'TuftsUniversity/tufts_models', branch: 'ldap_user'
 group :development do
   gem 'jettywrapper'
   gem 'capistrano'

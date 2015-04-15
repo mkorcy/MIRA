@@ -1,5 +1,6 @@
 class TuftsVideo < TuftsBase
-  has_metadata "ARCHIVAL_XML", type: TuftsAudioTextMeta
+  has_file_datastream 'ARCHIVAL_XML', control_group: 'E', original: true
+
   #MK 2011-04-13 - Are we really going to need to access FILE-META from FILE-META.  I'm guessing
   # not.
 
