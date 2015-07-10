@@ -1,7 +1,7 @@
 GIT
-  remote: git://github.com/TuftsUniversity/tufts_models.git
-  revision: d2075c8ed599c5adeaa4445774803bf69f76f56c
-  branch: ldap_user
+  remote: git://github.com/curationexperts/tufts_models.git
+  revision: 582a702421326c69f0535288a1c8d720ca2bee66
+  ref: v4.0.1
   specs:
     tufts_models (0.0.1)
       active-fedora (~> 7.1)
@@ -549,6 +549,3 @@ DEPENDENCIES
   tufts_models!
   uglifier (>= 1.3.0)
   webmock
-
-BUNDLED WITH
-   1.10.4

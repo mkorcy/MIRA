@@ -35,7 +35,10 @@ gem 'resque-status'
 gem 'carrierwave', '~> 0.10.0'
 
 gem 'blacklight_advanced_search'
-gem 'tufts_models', github: 'TuftsUniversity/tufts_models', branch: 'ldap_user'
+gem 'tufts_models', github: 'curationexperts/tufts_models', ref: 'v4.0.1'
+
+#gem 'tufts_models', github: 'TuftsUniversity/tufts_models', branch: 'ldap_user'
+
 # gem 'handle-system', '~> 0.0.7'
 gem 'handle-system', github: 'jcoyne/handle', ref: '8ae4ceb'
 
