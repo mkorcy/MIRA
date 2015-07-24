@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 20150626175634) do
     t.integer  "user_id",     null: false
     t.string   "document_id"
     t.string   "title"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "user_type"
   end
 
   create_table "deposit_types", force: true do |t|
     t.string   "display_name"
-    t.text     "deposit_agreement", limit: 16777215
+    t.text     "deposit_agreement"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "deposit_view"
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(version: 20150626175634) do
   add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id", using: :btree
 
   create_table "searches", force: true do |t|
-    t.text     "query_params", limit: 16777215
+    t.text     "query_params"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "user_type"
   end
 
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150626175634) do
   add_index "uploaded_files", ["batch_id"], name: "index_uploaded_files_on_batch_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "username"
+    t.string   "username",               default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -90,12 +90,12 @@ ActiveRecord::Schema.define(version: 20150626175634) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "guest",                  default: false
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["username"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
