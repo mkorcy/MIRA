@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
    devise :ldap_authenticatable, :trackable
 
   def to_s
-    email
+    display_name
   end
 
   def registered?

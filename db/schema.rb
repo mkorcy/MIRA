@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20150626175634) do
     t.integer "user_id"
   end
 
-  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-  add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
+  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", using: :btree
+  add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id", using: :btree
 
   create_table "searches", force: true do |t|
     t.text     "query_params"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150626175634) do
     t.string   "user_type"
   end
 
-  add_index "searches", ["user_id"], name: "index_searches_on_user_id"
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
 
   create_table "sequences", force: true do |t|
     t.integer "value", default: 0
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20150626175634) do
     t.string  "filename"
   end
 
-  add_index "uploaded_files", ["batch_id"], name: "index_uploaded_files_on_batch_id"
+  add_index "uploaded_files", ["batch_id"], name: "index_uploaded_files_on_batch_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "username",               default: "",    null: false
