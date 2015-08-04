@@ -8,11 +8,11 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+#  devise :ldap_authenticatable, :rememberable, :trackable
+   devise :ldap_authenticatable, :trackable
 
   def to_s
-    email
+    username
   end
 
   def registered?
@@ -20,7 +20,11 @@ class User < ActiveRecord::Base
   end
 
   def display_name  #update this method to return the string you would like used for the user name stored in fedora objects.
-    self.user_key
+    if Rails.env.test?
+			self.username
+    else
+      Devise::LDAP::Adapter.get_ldap_param(self.username,"tuftsEduDisplayNameLF")[0]
+    end
   end
 
 end

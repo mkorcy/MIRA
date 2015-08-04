@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601221522) do
+ActiveRecord::Schema.define(version: 20150625162747) do
 
   create_table "batches", force: true do |t|
     t.integer  "creator_id"
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20150601221522) do
     t.integer "user_id"
   end
 
-  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-  add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
+  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", using: :btree
+  add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id", using: :btree
 
   create_table "searches", force: true do |t|
     t.text     "query_params"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150601221522) do
     t.string   "user_type"
   end
 
-  add_index "searches", ["user_id"], name: "index_searches_on_user_id"
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
 
   create_table "sequences", force: true do |t|
     t.integer "value", default: 0
@@ -77,10 +77,10 @@ ActiveRecord::Schema.define(version: 20150601221522) do
     t.string  "filename"
   end
 
-  add_index "uploaded_files", ["batch_id"], name: "index_uploaded_files_on_batch_id"
+  add_index "uploaded_files", ["batch_id"], name: "index_uploaded_files_on_batch_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "",    null: false
+    t.string   "username",               default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20150601221522) do
     t.boolean  "guest",                  default: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
