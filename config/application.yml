@@ -8,6 +8,7 @@ defaults: &defaults
   repository_url:       "http://repository01.lib.tufts.edu:8080"
     #/tdr/dcadata02/tufts/central/dca/
   object_store_root:    '/tdr/dcadata02/tufts/central/dca/fake_bucket'
+  object_store_metadata_exports: 'data05/tufts/metadata_exports'
   object_store_base:    'data01/tufts'
   object_store_dca:     'central/dca'
   object_store_tisch:   'sas'
