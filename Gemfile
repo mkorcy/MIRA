@@ -63,6 +63,7 @@ group :test do
   gem 'webmock'
   gem 'database_cleaner'
   gem 'rspec-activemodel-mocks'
+  gem 'ladle'
 end
 
 group :debug do
