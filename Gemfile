@@ -13,6 +13,8 @@ gem 'hydra-role-management', '0.2.0'
 gem 'hydra-batch-edit', '1.1.1'
 gem 'qa', '0.5.0'
 
+gem 'sanitize', '2.0.6'
+
 gem 'devise_ldap_authenticatable', '0.8.1'
 
 gem 'disable_assets_logger', group: :development
