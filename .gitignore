@@ -23,6 +23,7 @@
 jetty
 
 # Don't send system specific config files
+config/application.yml
 config/database.yml
 config/devise.yml
 config/fedora.yml
@@ -31,6 +32,7 @@ config/redis.yml
 config/resque-pool.yml
 config/secrets.yml
 config/solr.yml
+config/ldap.yml
 
 # Ignore RubyMine config files
 .idea/
