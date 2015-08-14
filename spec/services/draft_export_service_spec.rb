@@ -41,7 +41,7 @@ describe DraftExportService do
 
     context 'when no export_directory supplied' do
       it 'uses Settings.object_store_root' do
-        expect(subject).to eq(File.join(Settings.object_store_root, "export"))
+        expect(subject).to eq(File.join(Settings.object_store_root, Settings.object_store_metadata_exports))
       end
     end
 
@@ -102,7 +102,7 @@ describe DraftExportService do
       subject { svc.full_export_file_path }
 
       it 'is named including the supplied batch_id' do
-        expect(subject).to eq(File.join(Settings.object_store_root, "export", "batch_1234.xml"))
+        expect(subject).to eq(File.join(Settings.object_store_root, Settings.object_store_metadata_exports, "batch_1234.xml"))
       end
 
     end

@@ -1,5 +1,5 @@
 class BatchExportFilename
-  def initialize(batch_id, export_directory = File.join(Settings.object_store_root, "export"))
+  def initialize(batch_id, export_directory = File.join(Settings.object_store_root, Settings.object_store_metadata_exports))
     @batch_id = batch_id
     @export_directory = export_directory
   end
