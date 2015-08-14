@@ -127,7 +127,7 @@ describe RecordsController do
 
       let(:draft) do
         TuftsAudio.build_draft_version(title: 'My title2', displays: ['dl']).tap do |d|
-          d.edit_users = [@user.email]
+          d.edit_users = [@user.username]
           d.save!
         end
       end
@@ -157,7 +157,7 @@ describe RecordsController do
       describe "on an object with no existing versions of DCA-META" do
         before do
           @audio = TuftsAudio.new()
-          @audio.edit_users = [@user.email]
+          @audio.edit_users = [@user.username]
           @audio.save(validate: false)
         end
         it "removes the record" do
@@ -168,7 +168,7 @@ describe RecordsController do
       describe "on an object with an existing version of DCA-META" do
         before do
           @audio = TuftsAudio.new(title: "My title2", displays: ['dl'])
-          @audio.edit_users = [@user.email]
+          @audio.edit_users = [@user.username]
           @audio.save!
         end
         it "doesn't remove the record" do
@@ -208,7 +208,7 @@ describe RecordsController do
       describe "with an audio" do
         let(:draft) do
           TuftsAudio.build_draft_version(title: 'My title2', displays: ['dl']).tap do |d|
-            d.edit_users = [@user.email]
+            d.edit_users = [@user.username]
             d.save!
           end
         end
@@ -245,7 +245,7 @@ describe RecordsController do
       describe "with an image" do
         let(:draft) do
           TuftsImage.build_draft_version(title: 'test image', displays: ['dl']).tap do |d|
-            d.edit_users = [@user.email]
+            d.edit_users = [@user.username]
             d.save!
           end
         end
@@ -274,7 +274,7 @@ describe RecordsController do
     describe "publish a record" do
       before do
         @audio = TuftsAudio.new(title: 'My title2', displays: ['dl'])
-        @audio.edit_users = [@user.email]
+        @audio.edit_users = [@user.username]
         @audio.save!
       end
 
@@ -291,7 +291,7 @@ describe RecordsController do
     describe "unpublish a record" do
       let(:audio) do
         TuftsAudio.build_draft_version(title: 'My title2', displays: ['dl']).tap do |audio|
-          audio.edit_users = [@user.email]
+          audio.edit_users = [@user.username]
           audio.save!
         end
       end
@@ -311,7 +311,7 @@ describe RecordsController do
       context "when the record has not been published" do
         let(:draft) do
           TuftsAudio.build_draft_version(title: 'My title2', displays: ['dl']).tap do |d|
-            d.edit_users = [@user.email]
+            d.edit_users = [@user.username]
             d.save!
           end
         end
@@ -330,7 +330,7 @@ describe RecordsController do
       context "when the record is published" do
         let(:draft) do
           TuftsAudio.build_draft_version(title: 'My title2', displays: ['dl']).tap do |d|
-            d.edit_users = [@user.email]
+            d.edit_users = [@user.username]
             d.save!
           end
         end
@@ -352,7 +352,7 @@ describe RecordsController do
     describe "destroying a record" do
       let(:audio) do
         TuftsAudio.build_draft_version(title: 'My title2', displays: ['dl']).tap do |a|
-          a.edit_users = [@user.email]
+          a.edit_users = [@user.username]
           a.save!
         end
       end
