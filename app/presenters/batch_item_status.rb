@@ -44,6 +44,8 @@ class BatchItemStatus
     ActiveFedora::Base.find(@pid, cast: true)
   rescue ActiveFedora::ObjectNotFoundError
     NullRecord.new
+  rescue ArgumentError
+    NullRecord.new
   end
 
   class NullRecord
