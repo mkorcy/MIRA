@@ -1,7 +1,7 @@
 GIT
-  remote: git://github.com/curationexperts/tufts_models.git
-  revision: 582a702421326c69f0535288a1c8d720ca2bee66
-  ref: v4.0.1
+  remote: git://github.com/TuftsUniversity/tufts_models.git
+  revision: 67f388ecb66a5f58892c6dd2e84d90abc3a49c63
+  tag: 4.0.2
   specs:
     tufts_models (0.0.1)
       active-fedora (~> 7.1)
@@ -152,9 +152,6 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise_ldap_authenticatable (0.8.1)
-      devise (>= 3.0)
-      net-ldap (>= 0.3.1, < 0.6.0)
     diff-lcs (1.2.5)
     disable_assets_logger (1.0.0)
     domain_name (0.5.24)
@@ -232,6 +229,8 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    ladle (1.0.1)
+      open4 (~> 1.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
@@ -267,7 +266,6 @@ GEM
     multi_json (1.11.0)
     mysql2 (0.3.16)
     net-http-persistent (2.9.4)
-    net-ldap (0.5.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -524,7 +522,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
-  devise_ldap_authenticatable (= 0.8.1)
   disable_assets_logger
   factory_girl_rails
   handle-system!
@@ -535,6 +532,7 @@ DEPENDENCIES
   jettywrapper
   jquery-fileupload-rails
   jquery-rails
+  ladle
   launchy
   mysql2
   poltergeist
