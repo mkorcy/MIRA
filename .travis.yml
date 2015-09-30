@@ -7,7 +7,7 @@ cache: bundler
 
 notifications:
   email:
-    - justin@curationexperts.com
+    - mike.korcynski@tufts.edu
 
 before_script:
   - cp config/database.yml.sample config/database.yml
