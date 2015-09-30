@@ -17,6 +17,7 @@ before_script:
   - cp config/devise.yml.sample config/devise.yml
   - cp config/jetty.yml.sample config/jetty.yml
   - cp config/secrets.yml.sample config/secrets.yml
+  - cp config/application.yml.sample config/application.yml
   - mysql -e 'create database mira_test'
   - bundle exec rake db:setup
 
