@@ -10,6 +10,12 @@ module ContributeHelper
     [['None', '0'], ['6 months', '6'],['1 year','12'], ['2 years','24']]
   end
 
+  def public_health_degrees
+    Qa::Authorities::Local.subauthority_for('public_health_degrees').all.map do |element|
+      [element[:label], element[:id]]
+    end
+  end
+
   def fletcher_degrees
     Qa::Authorities::Local.subauthority_for('fletcher_degrees').all.map do |element|
       [element[:label], element[:id]]
