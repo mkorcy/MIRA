@@ -20,6 +20,11 @@ roles.each do | name |
   Role.first_or_create(name: name)
 end
 
+User.create!(email: 'admin@example.com', 
+             password: 'password', 
+             password_confirmation: 'password')
+
+ActiveRecord::Base.connection.execute "insert into roles_users values (1, 1)"
 deposit_types_file = File.join(Rails.root, 'db', 'fixtures', 'deposit_types.csv')
 puts "Loading Deposit Types from #{deposit_types_file}"
 DepositTypeImporter.new(deposit_types_file).import_from_csv
